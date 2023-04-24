@@ -96,8 +96,14 @@ const Index = () => {
                                                 frameBorder="0"
                                                 allow="autoplay; modestbranding; encrypted-media"
                                             /> */}
-                                            
-
+                                            <Image
+                                                src={"/s1.png?v1"}
+                                                width={800}
+                                                height={600}
+                                                style={{top: 0, left: 0}}
+                                                className="absolute h-full w-full rounded-b-md"
+                                                alt="vylyn | connect your social media ads"
+                                            />
                                         </div>
                                     </div>
                                 </div>
