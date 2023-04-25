@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: "custom-font";
+    src: url(../assets/fonts/CustomFont-Book.woff2) format("woff2"),
+        url(../assets/fonts/CustomFont-Book.woff) format("woff");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "custom-font";
+    src: url(../assets/fonts/CustomFont-Medium.woff2) format("woff2"),
+        url(../assets/fonts/CustomFont-Medium.woff) format("woff");
+    font-weight: 500;
+    font-style: normal;
+}
+
+html {
+    scroll-behavior: smooth !important;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #1c1c1c;
+}
+
+
+h1, h2, h3, h4, h5, p {
+  /* font-weight: 900 !important; */
+  /* color: red !important; */
+}
+
