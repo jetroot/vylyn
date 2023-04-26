@@ -79,13 +79,13 @@ const Index = () => {
                                 </div>
                                 <div className="mt-16 flex content-center sm:mt-24 lg:absolute lg:-right-80 lg:col-span-6 lg:mt-0 lg:w-9/12 xl:relative xl:right-0 xl:w-full">
                                     <div className="relative flex w-full flex-col items-center justify-center rounded-md">
-                                        <div className="bg-scale-400 flex h-5 w-full items-center justify-start rounded-t-md px-2">
+                                        {/* <div className="bg-scale-400 flex h-5 w-full items-center justify-start rounded-t-md px-2">
                                             <div className="bg-alt-background mr-2 h-2 w-2 rounded-full" />
                                             <div className="bg-alt-background mr-2 h-2 w-2 rounded-full" />
                                             <div className="bg-alt-background mr-2 h-2 w-2 rounded-full" />
-                                        </div>
+                                        </div> */}
                                         <div
-                                            className="bg-alt-background relative w-full rounded-b-md shadow-lg"
+                                            className="relative w-full h-full"
                                             style={{ padding: "56.25% 0 0 0" }}
                                         >
                                             {/* <iframe
@@ -97,12 +97,12 @@ const Index = () => {
                                                 allow="autoplay; modestbranding; encrypted-media"
                                             /> */}
                                             <Image
-                                                src={"/s1.png?v1"}
-                                                width={800}
-                                                height={600}
-                                                style={{top: 0, left: 0}}
-                                                className="absolute h-full w-full rounded-b-md"
-                                                alt="vylyn | connect your social media ads"
+                                                src={"/hero.svg?v1.1"}
+                                                width={487}
+                                                height={420}
+                                                priority={true}                                                style={{top: 0, left: 0}}
+                                                className="absolute h-full w-full"
+                                                alt="vylyn | scale 10x better"
                                             />
                                         </div>
                                     </div>
