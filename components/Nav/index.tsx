@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { AiOutlineStar } from "react-icons/ai";
 
 import Announcement from "./Announcement";
 import Logo from "../Logo";
@@ -39,6 +40,19 @@ const Index = () => {
                             </span>
                         </div>
                         <div className="flex justify-between gap-3 items-center">
+                            <a
+                                href="https://github.com/jetroot/vylyn"
+                                target="_blank"
+                                className="text-[0.75rem] gap-1 hover:bg-alt-background cursor-pointer py-1 rounded-md"
+                            >
+                                <span
+                                    style={{ fontWeight: 300 }}
+                                    className="flex gap-1 px-1 items-center w-full h-full hover:text-slate-300"
+                                >
+                                    <AiOutlineStar className="text-sm" />
+                                    Star us on Github
+                                </span>
+                            </a>
                             <div className="bg-alt-background relative cursor-pointer text-center font-regular rounded outline-0 shadow-sm text-xs px-4 py-1.5 text-white">
                                 Sign in
                             </div>
@@ -58,13 +72,13 @@ const Index = () => {
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
-                                stroke-width="1.5"
+                                strokeWidth="1.5"
                                 stroke="currentColor"
                                 className="w-6 h-6 text-zinc-400"
                             >
                                 <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
                                     d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
                                 />
                             </svg>
