@@ -9,7 +9,7 @@ interface Props {
 
 const SocialCard = ({ Icon, company, description, color }: Props) => {
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col" key={`${company}-${color}`}>
             <div className="flex gap-2 items-center">
                 <div className="bg-white rounded-md w-8 h-8 flex justify-center items-center">
                     <Icon className="w-6 h-6" color={color} />
