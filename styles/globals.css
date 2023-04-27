@@ -28,9 +28,17 @@ body {
     background-color: #1c1c1c;
 }
 
-
-h1, h2, h3, h4, h5, p {
-  /* font-weight: 900 !important; */
-  /* color: red !important; */
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+    /* font-weight: 900 !important; */
+    /* color: red !important; */
 }
 
+::selection {
+    background-color: #6ee7b7;
+    color: #333 !important;
+}

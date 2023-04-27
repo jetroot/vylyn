@@ -32,12 +32,18 @@ const Index = () => {
                             <Link href={"/"}>
                                 <Logo />
                             </Link>
-                            <span className="hover:text-[#65d9a5] cursor-pointer items-center text-sm font-medium">
-                                About
-                            </span>
-                            <span className="hover:text-[#65d9a5] cursor-pointer items-center text-sm font-medium">
-                                Pricing
-                            </span>
+
+                            <Link href='/about'>
+                                <span className="hover:text-[#65d9a5] cursor-pointer items-center text-sm font-medium">
+                                    About
+                                </span>
+                            </Link>
+
+                            <Link href={"/pricing"}>
+                                <span className="hover:text-[#65d9a5] cursor-pointer items-center text-sm font-medium">
+                                    Pricing
+                                </span>
+                            </Link>
                         </div>
                         <div className="flex justify-between gap-3 items-center">
                             <a
@@ -53,12 +59,18 @@ const Index = () => {
                                     Star us on Github
                                 </span>
                             </a>
-                            <div className="bg-alt-background relative cursor-pointer text-center font-regular rounded outline-0 shadow-sm text-xs px-4 py-1.5 text-white">
-                                Sign in
-                            </div>
-                            <div className="bg-brandColor border-[#65d9a5] border-[0.1px] relative cursor-pointer px-4 text-center font-regular rounded outline-0 shadow-sm text-xs py-1 text-white">
-                                Sign up Now
-                            </div>
+
+                            <Link href={"/sign-in"}>
+                                <div className="bg-alt-background relative cursor-pointer text-center font-regular rounded outline-0 shadow-sm text-xs px-4 py-1.5 text-white">
+                                    Sign in
+                                </div>
+                            </Link>
+
+                            <Link href={"/sign-up"}>
+                                <div className="bg-brandColor border-[#65d9a5] border-[0.1px] relative cursor-pointer px-4 text-center font-regular rounded outline-0 shadow-sm text-xs py-1 text-white">
+                                    Sign up Now
+                                </div>
+                            </Link>
                         </div>
                     </div>
 
