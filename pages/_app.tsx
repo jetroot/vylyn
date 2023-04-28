@@ -13,16 +13,13 @@ export default function App({ Component, pageProps }: AppProps) {
             <Head>
                 <link rel="shortcut icon" href="/favicon.png" />
                 <title>Vylyn - 10x better campaigns</title>
-                <meta property="description" content="10x better campaigns using AI" />
+                <meta
+                    property="description"
+                    content="10x better campaigns using AI"
+                />
             </Head>
 
-            {route === "/" ? (
-                <Component {...pageProps} />
-            ) : (
-                <Layouts>
-                    <Component {...pageProps} />
-                </Layouts>
-            )}
+            <Component {...pageProps} />
         </>
     );
 }
