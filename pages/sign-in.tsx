@@ -1,11 +1,10 @@
-import SignInWithFacebook from "@/components/SignIn/SignInWithFacebook";
 import Link from "next/link";
 import React from "react";
 import Logo from "../components/Logo";
 import { RiDoubleQuotesL } from "react-icons/ri";
 import Image from "next/image";
 import { AiFillGithub } from "react-icons/ai";
-import SignInWithGoogle from "@/components/SignIn/SignInWithGoogle";
+import SignUpAndSignIn from "@/components/SignUpAndSignIn/SignUpAndSignIn";
 
 
 const SignIn = () => {
@@ -49,8 +48,16 @@ const SignIn = () => {
                             </div>
 
                             <div className="max-w-sm flex flex-col gap-4 mx-4">
-                                <SignInWithFacebook />
-                                <SignInWithGoogle />
+                                <SignUpAndSignIn
+                                    provider="google"
+                                    text={"Sign in with Google"}
+                                    isSubmittingText="Signing..."
+                                />
+                                <SignUpAndSignIn
+                                    provider="facebook"
+                                    text={"Sign in with Facebook"}
+                                    isSubmittingText="Signing..."
+                                />
                             </div>
                         </div>
 
@@ -71,9 +78,9 @@ const SignIn = () => {
 
                     <div className="flex justify-center">
                         <small className="max-w-sm mx-auto px-8 w-full text-center absolute bottom-6 text-gray-500 text-[0.7rem]">
-                            By continuing, you agree to Vylyn's Terms of
-                            Service and Privacy Policy, and to receive periodic
-                            emails with updates.
+                            By continuing, you agree to Vylyn's Terms of Service
+                            and Privacy Policy, and to receive periodic emails
+                            with updates.
                         </small>
                     </div>
                 </div>

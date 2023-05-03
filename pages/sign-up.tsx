@@ -4,10 +4,8 @@ import { AiFillGithub } from "react-icons/ai";
 import { RiDoubleQuotesL } from "react-icons/ri";
 
 import Logo from "../components/Logo";
-import SignInWithFacebook from "@/components/SignIn/SignInWithFacebook";
-import SignUpWithGoogle from "@/components/SignUp/SignUpWithGoogle";
 import Image from "next/image";
-import SignUpWithFacebook from "@/components/SignUp/SignUpWithFacebook";
+import SignUpAndSignIn from "@/components/SignUpAndSignIn/SignUpAndSignIn";
 
 const SignUp = () => {
     return (
@@ -46,8 +44,16 @@ const SignUp = () => {
                         </div>
 
                         <div className="max-w-sm flex flex-col gap-4 mx-4">
-                            <SignUpWithFacebook />
-                            <SignUpWithGoogle />
+                            <SignUpAndSignIn
+                                provider="google"
+                                text={"Sign up with Google"}
+                                isSubmittingText="Signing up..."
+                            />
+                            <SignUpAndSignIn
+                                provider="facebook"
+                                text={"Sign up with Facebook"}
+                                isSubmittingText="Signing up..."
+                            />
                         </div>
                     </div>
 
