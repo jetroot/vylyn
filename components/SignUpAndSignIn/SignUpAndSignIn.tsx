@@ -13,6 +13,7 @@ interface IProps {
 const SignUpAndSignIn = ({ provider, text, isSubmittingText }: IProps) => {
     const [isSubmitted, setIsSubmitted] = useState(false);
 
+
     const handleSignUpAndSignIn = async () => {
         try {
             setIsSubmitted(true);
@@ -57,6 +58,7 @@ const SignUpAndSignIn = ({ provider, text, isSubmittingText }: IProps) => {
                     <AiOutlineLoading3Quarters size={14} />
                 </span>
             )}
+
             <span className="text-sm">
                 {isSubmitted ? isSubmittingText : text}
             </span>
