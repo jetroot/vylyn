@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.21.0",
+    "@types/js-cookie": "^3.0.3",
     "@types/node": "18.15.11",
     "@types/react": "18.0.37",
     "@types/react-dom": "18.0.11",
@@ -17,6 +19,7 @@
     "eslint": "8.38.0",
     "eslint-config-next": "13.3.0",
     "formik": "^2.2.9",
+    "js-cookie": "^3.0.5",
     "mongoose": "^7.0.4",
     "next": "13.3.0",
     "nextjs-cors": "^2.1.2",

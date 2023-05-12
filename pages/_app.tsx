@@ -2,11 +2,9 @@ import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 
-import Layouts from "../components/Layouts";
-import { useRouter } from "next/router";
+import { UserContextProvider } from "@/context";
 
 export default function App({ Component, pageProps }: AppProps) {
-    const { route } = useRouter();
 
     return (
         <>
@@ -19,7 +17,9 @@ export default function App({ Component, pageProps }: AppProps) {
                 />
             </Head>
 
-            <Component {...pageProps} />
+            <UserContextProvider>
+                <Component {...pageProps} />
+            </UserContextProvider>
         </>
     );
 }

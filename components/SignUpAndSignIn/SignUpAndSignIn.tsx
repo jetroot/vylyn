@@ -1,7 +1,8 @@
-import { useState } from "react";
-import { RiGoogleFill } from "react-icons/ri";
-import { RiFacebookFill } from "react-icons/ri";
+import { useState, useContext, useEffect } from "react";
+
+import { RiGoogleFill, RiFacebookFill } from "react-icons/ri";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { supabase } from "@/utils/supabase";
 
 interface IProps {
     provider: "google" | "facebook";
@@ -12,9 +13,25 @@ interface IProps {
 const SignUpAndSignIn = ({ provider, text, isSubmittingText }: IProps) => {
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    const handleSignUpAndSignIn = () => {
-        console.info("clicked");
-        setIsSubmitted(true)
+
+    const handleSignUpAndSignIn = async () => {
+        try {
+            setIsSubmitted(true);
+
+            const { error } = await supabase.auth.signInWithOAuth({
+                provider: `${provider}`,
+                options: {
+                    redirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/redirecting`,
+                },
+            });
+
+            if (error) {
+                setIsSubmitted(false);
+                return;
+            }
+        } catch (error) {
+            setIsSubmitted(false);
+        }
     };
 
     return (
@@ -41,7 +58,10 @@ const SignUpAndSignIn = ({ provider, text, isSubmittingText }: IProps) => {
                     <AiOutlineLoading3Quarters size={14} />
                 </span>
             )}
-            <span className="text-sm">{isSubmitted ? isSubmittingText : text}</span>
+
+            <span className="text-sm">
+                {isSubmitted ? isSubmittingText : text}
+            </span>
         </button>
     );
 };

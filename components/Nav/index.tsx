@@ -33,7 +33,7 @@ const Index = () => {
                                 <Logo />
                             </Link>
 
-                            <Link href='/about'>
+                            <Link href="/about">
                                 <span className="hover:text-[#65d9a5] cursor-pointer items-center text-sm font-medium">
                                     About
                                 </span>
@@ -127,23 +127,23 @@ const Index = () => {
 
                             <div className="flex-col mx-10 text-white font-semibold">
                                 <Link href={"sign-in"}>
-                                    <p className="hover:bg-alt-background rounded-lg py-2 px-2 mt-2">
+                                    <p className="hover:bg-alt-background rounded-lg py-2 px-2 mt-2 text-sm">
                                         Sign in
                                     </p>
                                 </Link>
 
                                 <Link href={"sign-up"}>
-                                    <p className="hover:bg-alt-background rounded-lg py-2 px-2">
+                                    <p className="hover:bg-alt-background rounded-lg py-2 px-2 text-sm">
                                         Sign up
                                     </p>
                                 </Link>
                                 <Link href={"pricing"}>
-                                    <p className="hover:bg-alt-background rounded-lg py-2 px-2">
+                                    <p className="hover:bg-alt-background rounded-lg py-2 px-2 text-sm">
                                         Pricing
                                     </p>
                                 </Link>
                                 <Link href={"about"}>
-                                    <p className="hover:bg-alt-background rounded-lg py-2 px-2">
+                                    <p className="hover:bg-alt-background rounded-lg py-2 px-2 text-sm">
                                         About
                                     </p>
                                 </Link>
