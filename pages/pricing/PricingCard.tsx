@@ -12,7 +12,12 @@ interface Props {
 
 const PricingCard = (props: Props) => {
     return (
-        <div className="bg-secondary-background pb-6">
+        <div
+            className={`bg-secondary-background pb-6 h-full relative ${
+                props.plan === "starter" &&
+                "border-2 border-brandPaltte-500 rounded-b-md"
+            }`}
+        >
             <div className="p-8">
                 <h1 className="uppercase text-brandPaltte-700 text-xl">
                     {props.plan}
@@ -57,7 +62,10 @@ const PricingCard = (props: Props) => {
                 </div>
             </div>
 
-            <Link href={"/"} className="w-full mx-auto flex justify-center">
+            <Link
+                href={"/"}
+                className="w-full mx-auto flex justify-center absolute bottom-5"
+            >
                 <div className="bg-brandColor w-10/12 text-center p-1.5 rounded-md text-white text-sm border-[1.5px] border-brandPaltte-500">
                     Get Started
                 </div>
