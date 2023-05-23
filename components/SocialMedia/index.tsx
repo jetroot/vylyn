@@ -30,14 +30,17 @@ const SocialMedia = () => {
                         </p>
                     </div>
                     <div className="grid grid-cols-2 grid-rows-2 gap-y-12 gap-x-4 my-10">
-                        {SocialMediaData.map(({icon, company, description, color}) => (
-                            <SocialCard
-                                Icon={icon}
-                                company={company}
-                                description={description}
-                                color={color}
-                            />
-                        ))}
+                        {SocialMediaData.map(
+                            ({ icon, company, description, color }) => (
+                                <SocialCard
+                                    key={`${company}-${color}`}
+                                    Icon={icon}
+                                    company={company}
+                                    description={description}
+                                    color={color}
+                                />
+                            )
+                        )}
                     </div>
                 </div>
             </div>
