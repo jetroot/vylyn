@@ -1,42 +1,35 @@
 import SectionContainer from "@/components/Layouts/SectionContainer";
 
 import PricingCard from "./PricingCard";
-import Nav from '../../components/Nav'
+import Nav from "../../components/Nav";
 
-const Pricing = () => {
+const Pricing = ({ showNav = true }: any) => {
     const pricesData = [
         {
             plan: "Free",
             planDescription: "Perfect for passion projects & simple websites.",
             price: 0,
-            priceDescription: "per month per project",
-            planFeatures: ["Feature #1", "Feature #2", "Feature #3"],
+            priceDescription: "No credit card required",
+            planFeatures: ["1 campaign", "5 requests", "No stored cloud data"],
         },
         {
             plan: "starter",
             planDescription: "Perfect for passion projects & simple websites.",
             price: 0,
-            priceDescription: "per month per project",
-            planFeatures: ["Feature #1", "Feature #2", "Feature #3"],
+            priceDescription: "per month per campaign",
+            planFeatures: ["3 campaigns", "100 requests", "No stored cloud data"],
         },
         {
             plan: "pro",
             planDescription: "Perfect for passion projects & simple websites.",
             price: 0,
             priceDescription: "per month per project",
-            planFeatures: ["Feature #1", "Feature #2", "Feature #3"],
-        },
-        {
-            plan: "unlimited",
-            planDescription: "Perfect for passion projects & simple websites.",
-            price: 0,
-            priceDescription: "per month per project",
-            planFeatures: ["Feature #1", "Feature #2", "Feature #3"],
+            planFeatures: ["10 campaigns", "200 requests", "Sync cloud data"],
         },
     ];
     return (
         <>
-        <Nav />
+            {showNav && <Nav />}
             <SectionContainer>
                 <div className="flex flex-col items-center w-full gap-4">
                     <h4 className="text-brandPaltte-400 text-center text-md">
@@ -52,7 +45,7 @@ const Pricing = () => {
                     </p>
                 </div>
 
-                <div className="max-w-6xl mx-auto grid grid-cols-4 max-md:grid-cols-1 max-lg:grid-cols-2 gap-4 my-14 p-2">
+                <div className="max-w-6xl mx-auto grid grid-cols-3 max-md:grid-cols-1 max-lg:grid-cols-2 gap-4 my-14 p-2">
                     {pricesData.map(
                         ({
                             plan,
@@ -61,20 +54,16 @@ const Pricing = () => {
                             priceDescription,
                             planFeatures,
                         }) => (
-                            <div
-                                className={`${
-                                    plan === "starter" &&
-                                    "border-2 border-brandPaltte-500 rounded-md"
-                                }`}
-                            >
+                            <div>
                                 {plan === "starter" ? (
-                                    <div className="p-3 h-10 bg-brandPaltte-500 text-white text-center text-[0.8rem]">
+                                    <div className="p-3 h-10 bg-brandPaltte-500 rounded-t-md text-white text-center text-[0.8rem]">
                                         Most Popular
                                     </div>
                                 ) : (
                                     <div className="h-10"></div>
                                 )}
                                 <PricingCard
+                                    key={`${plan}-${price}`}
                                     plan={plan}
                                     planDescription={planDescription}
                                     price={price}
