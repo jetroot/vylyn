@@ -1,8 +1,8 @@
 import { useState } from "react";
+import { signIn } from "next-auth/react";
 
 import { RiGoogleFill, RiFacebookFill } from "react-icons/ri";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
 interface IProps {
     provider: "google" | "facebook";
@@ -12,23 +12,13 @@ interface IProps {
 
 const SignUpAndSignIn = ({ provider, text, isSubmittingText }: IProps) => {
     const [isSubmitted, setIsSubmitted] = useState(false);
-    const supabaseClient = useSupabaseClient();
 
     const handleSignUpAndSignIn = async () => {
         try {
             setIsSubmitted(true);
-
-            const { error } = await supabaseClient.auth.signInWithOAuth({
-                provider: `${provider}`,
-                options: {
-                    redirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/auth/dashboard`,
-                },
+            signIn(provider, {
+                callbackUrl: `${process.env.NEXT_PUBLIC_APP_URL}/auth/dashboard`,
             });
-
-            if (error) {
-                setIsSubmitted(false);
-                return;
-            }
         } catch (error) {
             setIsSubmitted(false);
         }
