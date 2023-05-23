@@ -6,7 +6,9 @@ export const SIGN_UP_URI = "/sign-in";
 
 // database connection
 export const connectToDb = () => {
-    return mongoose.connect(process.env.MONGO_DB_URI!);
+    return mongoose.connect(process.env.MONGO_DB_URI!, {
+        dbName: process.env.MONGO_DB_NAME,
+    });
 };
 
 // Custom response
