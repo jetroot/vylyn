@@ -3,6 +3,7 @@ const nextConfig = {
     reactStrictMode: true,
     images: {
         dangerouslyAllowSVG: true,
+        domains: ["lh3.googleusercontent.com", "platform-lookaside.fbsbx.com"], // Google && Facebook
     },
     webpack(config) {
         config.module.rules.push({
