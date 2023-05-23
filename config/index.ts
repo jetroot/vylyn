@@ -6,7 +6,7 @@ export const SIGN_UP_URI = "/sign-in";
 
 // database connection
 export const connectToDb = () => {
-    return mongoose.connect("mongodb://root:example@localhost:27017/");
+    return mongoose.connect(process.env.MONGO_DB_URI!);
 };
 
 // Custom response
