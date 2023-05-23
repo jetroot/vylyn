@@ -96,7 +96,7 @@ const Dashboard = () => {
                     <div className="grid grid-cols-3 place-items-center gap-x-4 max-md:grid-cols-1 max-md:mx-auto">
                         {campaigns.docs.map((campaign) => (
                             <div
-                                className="w-full h-auto mt-2"
+                                className="w-full h-auto mt-2 mb-6"
                                 key={campaign._id}
                             >
                                 <div className="w-full max-w-xl shadow-[0_-1px_0_0_#5d5d5d,0_2px_0_2px_#161616] flex flex-col h-72 p-6 rounded-lg mt-8 ">
