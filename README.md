@@ -6,17 +6,16 @@
 ## Techs we are using
 1. NextJS
 2. Tailwind css
-3. Supabase
-4. AI - ChatGPT Api Davinchi model
+3. AI - ChatGPT Api Davinchi model
 
 ## To do list
 | To do         | Doing           | Done  |
 | ------------- |:-------------:|:-----:|
 | Authentication using google             | ✔️| ✅ |
-| Authentication using facebook             | ❌ | ❌ |
-| Create dashboard UI    | ❌ | ❌ |
-| Display facebook campaigns at vylyn  |  ❌  | ❌ |
-| Connect campaigns at vylyn to Davinchi model  |  ❌  | ❌ |
+| Authentication using facebook             | ✔️| ✅ |
+| Create campaign dashboard    | ✔️| ✅ |
+| Create ads dashboard at vylyn  |  ❌  | ❌ |
+| Configure Davinchi model  |  ❌  | ❌ |
 | Analyze campaigns & performance using tips & suggestions  |  ❌  | ❌ |
 
 ## Thanks
