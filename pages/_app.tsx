@@ -2,27 +2,12 @@ import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 
-import { UserContextProvider } from "@/context";
-
-import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import { SessionContextProvider, Session } from "@supabase/auth-helpers-react";
-
-import { useState } from "react";
-import { ACCESS_TOKEN_NAME_IN_COOKIES } from "@/config";
+import { SessionProvider } from "next-auth/react";
 
 export default function App({
     Component,
-    pageProps,
-}: AppProps<{ initialSession: Session }>) {
-    // Create a new supabase browser client on every first render.
-    const [supabaseClient] = useState(() =>
-        createBrowserSupabaseClient({
-            cookieOptions: {
-                name: ACCESS_TOKEN_NAME_IN_COOKIES,
-            },
-        })
-    );
-
+    pageProps: { session, ...pageProps },
+}: AppProps) {
     return (
         <>
             <Head>
@@ -34,14 +19,9 @@ export default function App({
                 />
             </Head>
 
-            <SessionContextProvider
-                supabaseClient={supabaseClient}
-                initialSession={pageProps.initialSession}
-            >
-                <UserContextProvider>
-                    <Component {...pageProps} />
-                </UserContextProvider>
-            </SessionContextProvider>
+            <SessionProvider session={session}>
+                <Component {...pageProps} />
+            </SessionProvider>
         </>
     );
 }
