@@ -146,6 +146,15 @@ module.exports = {
                     "monospace",
                 ],
             },
+            keyframes: {
+                wiggle: {
+                    "0%": { transform: "translate(0%)" },
+                    "100%": { transform: "translate(200%)" },
+                },
+            },
+            animation: {
+                wiggle: "wiggle 1s ease-in-out infinite",
+            },
         },
     },
     plugins: [],
