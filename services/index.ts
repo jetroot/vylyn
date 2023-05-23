@@ -46,7 +46,6 @@ export const getCampaigns = async (
                 { user_id: userId },
                 { page }
             );
-            console.log("campaigns", campaigns);
             data.push(campaigns);
         });
     } catch (error) {
