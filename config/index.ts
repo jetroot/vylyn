@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
 
+import { Configuration } from "openai";
+
 // Sign in & Sign up Uri
 export const SIGN_IN_URI = "/sign-in";
-export const SIGN_UP_URI = "/sign-in";
+export const SIGN_UP_URI = "/sign-up";
 
 // database connection
 export const connectToDb = () => {
@@ -38,3 +40,8 @@ export const ResponseStatusCodes = {
         msg: "User Already Exists!",
     },
 };
+
+// Open AI Configuration
+export const OpenAiConfiguration = new Configuration({
+    apiKey: process.env.OPENAI_API_KEY,
+});

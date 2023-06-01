@@ -42,3 +42,53 @@ p {
     background-color: #6ee7b7;
     color: #333 !important;
 }
+
+.th {
+    @apply border border-[#282828] text-[12px] text-gray-300 p-4 w-60;
+}
+
+.tr {
+    @apply border border-[#282828] text-[13px] text-[#5d5d5d] p-4;
+}
+
+.tr:nth-child(even) {
+    @apply bg-alt-background text-[#c3c3c3];
+    /* color: #423b3b */
+}
+
+.tr:nth-child(odd) {
+    @apply text-gray-300;
+}
+
+.td {
+    @apply p-4 text-center;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    @apply bg-secondary-background;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    @apply bg-alt-background;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-[#5d5d5d];
+}
+
+/* Tooltip */
+.tooltip {
+    @apply invisible absolute;
+}
+
+.has-tooltip:hover .tooltip {
+    @apply visible z-50;
+}

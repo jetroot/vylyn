@@ -19,6 +19,7 @@ const Dashboard = () => {
     const [campaigns, setCampaigns] = useState<Array<any>>([]);
     const [canFetchData, setCanFetchData] = useState(true);
     const [isLoadingData, setIsLoadingData] = useState(true);
+    const [isMovingToAdCampaigns, setIsMovingToAdCampaigns] = useState(false);
 
     const { data } = useSession();
     const router = useRouter();
@@ -62,6 +63,11 @@ const Dashboard = () => {
 
     return !isLoading ? (
         <>
+            {isMovingToAdCampaigns && (
+                <div className="overflow-hidden w-screen">
+                    <div className="bg-brandPaltte-400 h-[3px] w-1/2 animate-wiggle"></div>
+                </div>
+            )}
             <AuthNav user={data?.user} />
             <div className="max-w-screen-2xl w-full mx-auto mt-6 px-3">
                 <div className="flex justify-between w-full">
@@ -99,7 +105,13 @@ const Dashboard = () => {
                                 className="w-full h-auto mt-2 mb-6"
                                 key={campaign._id}
                             >
-                                <div className="w-full max-w-xl shadow-[0_-1px_0_0_#5d5d5d,0_2px_0_2px_#161616] flex flex-col h-72 p-6 rounded-lg mt-8 ">
+                                <Link
+                                    onClick={() =>
+                                        setIsMovingToAdCampaigns(true)
+                                    }
+                                    href={`/auth/campaign/${campaign._id}`}
+                                    className="w-full max-w-xl shadow-[0_-1px_0_0_#5d5d5d,0_2px_0_2px_#161616] flex flex-col h-72 p-6 rounded-lg mt-8 "
+                                >
                                     <div className="uppercase text-[#5d5d5d] text-right font-medium ">
                                         {campaign.campaign_status}
                                     </div>
@@ -116,7 +128,7 @@ const Dashboard = () => {
                                                 .substring(4)}
                                         </div>
                                     </div>
-                                </div>
+                                </Link>
                             </div>
                         ))}
                     </div>
