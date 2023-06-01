@@ -1,4 +1,4 @@
-import { CampaignObjectives } from "@/types";
+import { CampaignObjectives, Gender } from "@/types";
 import { CampaignStatus } from "@/types";
 import * as yup from "yup";
 
@@ -31,3 +31,67 @@ export const CreateCampaignSchema = yup.object().shape({
         .oneOf(campaignObjectives, "Campaign objective is incorrect")
         .required("Required"),
 });
+
+const GENDER = Object.values(Gender);
+export const FullAdCampaignSchema = yup.object().shape({
+    budget: yup.string().required("Required"),
+    amount_spent: yup.string().required("Required"),
+
+    target_gender: yup
+        .mixed()
+        .oneOf(GENDER, "Gender is invalid")
+        .required("Required"),
+    target_countries: yup.string().required("Required"),
+
+    results: yup.string().required("Required"),
+    cost_per_result: yup.string().required("Required"),
+
+    reach: yup.string().required("Required"),
+    impressions: yup.string().required("Required"),
+    frequency: yup.string().required("Required"),
+
+    cpc: yup.string().required("Required"),
+    cpm: yup.string().required("Required"),
+    ctr: yup.string().required("Required"),
+    link_clicks: yup.string().required("Required"),
+});
+
+// Dynamic Ad Campaign Schema
+export const DynamicAdCampaignSchema = (slideID: number) => {
+    switch (slideID) {
+        case 0:
+            return yup.object().shape({
+                budget: yup.string().required("Required"),
+                amount_spent: yup.string().required("Required"),
+            });
+        case 1:
+            return yup.object().shape({
+                target_gender: yup
+                    .mixed()
+                    .oneOf(GENDER, "Gender is invalid")
+                    .required("Required"),
+                target_countries: yup.string().required("Required"),
+            });
+        case 2:
+            return yup.object().shape({
+                results: yup.string().required("Required"),
+                cost_per_result: yup.string().required("Required"),
+            });
+        case 3:
+            return yup.object().shape({
+                reach: yup.string().required("Required"),
+                impressions: yup.string().required("Required"),
+                frequency: yup.string().required("Required"),
+            });
+        case 4:
+            return yup.object().shape({
+                cpc: yup.string().required("Required"),
+                cpm: yup.string().required("Required"),
+                ctr: yup.string().required("Required"),
+                link_clicks: yup.string().required("Required"),
+            });
+
+        default:
+            return FullAdCampaignSchema;
+    }
+};

@@ -23,3 +23,8 @@ export enum CampaignObjectives {
     CONVERSION,
     LEADS,
 }
+
+// Gender
+export enum Gender {
+    FEMALE, MALE, BOTH
+}
