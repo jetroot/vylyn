@@ -16,9 +16,11 @@ const AuthNav = ({ user }: any) => {
         await signOut();
     };
 
-    router.events.on("routeChangeComplete", () => {
-        setIsSignInOut(false);
-    });
+    useEffect(() => {
+      router.events.on("routeChangeComplete", () => {
+          setIsSignInOut(false);
+      });
+    }, [])
 
     return (
         <nav className="border-[#282828] border-b bg-primary-background transition-opacity">
