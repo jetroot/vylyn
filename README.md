@@ -14,9 +14,10 @@
 | Authentication using google             | ✔️| ✅ |
 | Authentication using facebook             | ✔️| ✅ |
 | Create campaign dashboard    | ✔️| ✅ |
-| Create ads dashboard at vylyn  |  ❌  | ❌ |
-| Configure Davinchi model  |  ❌  | ❌ |
-| Analyze campaigns & performance using tips & suggestions  |  ❌  | ❌ |
+| Create ads dashboard at vylyn  |  ✔️  | ✅ |
+| Configure Davinchi model  | ✔️ | ✅ |
+| Analyze campaigns & performance using tips & suggestions  | ✔️ | ✅ |
+| Configuring paypal api for payments  |  ❌  | ❌ |
 
 ## Thanks
 - Give it a star ⭐ if you like it 
