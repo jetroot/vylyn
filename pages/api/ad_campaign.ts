@@ -108,6 +108,57 @@ export default async function createAdCampaign(
         }
     }
 
+    // Generate response for query
+    if (method === "POST" && _type === "_GRFQ") {
+        const { question } = req.body;
+
+        // console.log("q", question);
+        // console.log("campaign data", campaign_should_assessed);
+        // console.log("_type", _type);
+
+        try {
+            const openai = new OpenAIApi(OpenAiConfiguration);
+            const response = await openai.createCompletion({
+                model: "text-davinci-003",
+                prompt:
+                    `${question}\n` + JSON.stringify(campaign_should_assessed),
+                temperature: 1,
+                max_tokens: 256,
+                top_p: 1,
+                frequency_penalty: 0,
+                presence_penalty: 0,
+            });
+
+            if (response.status === 200) {
+                res.status(ResponseStatusCodes.OK.status).json({
+                    // question,
+                    // _type,
+                    // campaign_should_assessed,
+                    // data: response.data.choices[0].text,
+                    // success: true,
+                    data: {
+                        success: true,
+                        data: response.data.choices[0].text,
+                    },
+                });
+
+                return;
+            }
+
+            return;
+        } catch (error) {
+            res.status(ResponseStatusCodes.ERROR.status).json({
+                data: {
+                    msg: ResponseStatusCodes.ERROR.msg,
+                    success: false,
+                    data: "",
+                },
+            });
+
+            return;
+        }
+    }
+
     // Create new ad campaign
     if (method === "POST") {
         // Create new ad campaign
@@ -119,7 +170,10 @@ export default async function createAdCampaign(
 
         if (!isValidated && !data.campaign_id) {
             res.status(400).json({
-                data: { msg: ResponseStatusCodes.BAD_REQUEST.msg, success: false },
+                data: {
+                    msg: ResponseStatusCodes.BAD_REQUEST.msg,
+                    success: false,
+                },
             });
             return;
         }
