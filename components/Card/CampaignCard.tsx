@@ -6,6 +6,7 @@ import { AiOutlineBug } from "react-icons/ai";
 import { GiShieldcomb } from "react-icons/gi";
 import { HiOutlineSquare2Stack } from "react-icons/hi2";
 import { BiLoaderAlt } from "react-icons/bi";
+import axios from "axios";
 
 interface Props {
     componentTitle: string;
@@ -24,8 +25,50 @@ const CampaignCard = ({
     campaignShouldBeAssessed,
     generatedData,
 }: Props) => {
+    const [queryResponse, setQueryResponse] = useState({
+        data: "",
+        loading: 2, // 2: don't show anything, 1: data is loading, 0: data loaded
+    });
+
     useEffect(() => {
+        // When we change our query
+        // hide the old query response
+        if (campaignShouldBeAssessed.loading) {
+            setQueryResponse({
+                ...queryResponse,
+                loading: 2,
+            });
+        }
     }, [campaignShouldBeAssessed, annotated]);
+
+    const generateResponseForQuery = async (
+        question: string,
+        type: string,
+        campaignData: any
+    ) => {
+        if (type === "queries") {
+            const q = question.substring(3);
+            // console.log(`q: ${q}  type: ${annotated}`);
+
+            setQueryResponse({
+                ...queryResponse,
+                loading: 1,
+            });
+
+            const response = await axios.post("/api/ad_campaign", {
+                _type: "_GRFQ", // Stands for Generate Response For Query
+                campaign_should_assessed: campaignData,
+                question: q,
+            });
+
+            if (response.data.data.success) {
+                setQueryResponse({
+                    loading: 0,
+                    data: response.data.data.data,
+                });
+            }
+        }
+    };
 
     return (
         <div className="max-w-screen-2xl w-full mx-auto mt-16 px-3 text-white">
@@ -64,7 +107,16 @@ const CampaignCard = ({
                         {generatedData.map((item, index) => (
                             <div
                                 key={index}
-                                className={`${style} flex-col w-1/4 rounded-lg p-4 bg-[#282828] shadow-[0_1_0_5px_#5d5d5d]`}
+                                onClick={() => {
+                                    generateResponseForQuery(
+                                        item,
+                                        annotated,
+                                        campaignShouldBeAssessed.campaignData
+                                    );
+                                }}
+                                className={`${style} hover:border-slate-500 hover:border ${
+                                    annotated === 'queries' && "cursor-pointer"
+                                } flex-col w-1/4 rounded-lg p-4 bg-[#282828] shadow-[0_1_0_5px_#5d5d5d]`}
                             >
                                 <div className="flex justify-end">
                                     <span className="bg-[#3e3e3e] p-2 rounded-md text-[12px]">
@@ -83,6 +135,31 @@ const CampaignCard = ({
                 campaignShouldBeAssessed.loading && (
                     <BiLoaderAlt className="animate-spin text-slate-300" />
                 )}
+
+            {/* // 2: don't show anything, 1: data is loading, 0: data loaded */}
+            {/* <h1 className="text-white"> loa{campaignShouldBeAssessed.loading}</h1> */}
+            {annotated === "queries" && (
+                <>
+                    {queryResponse.loading === 0 && (
+                        <div className="border border-slate-500 text-slate-300 p-3 rounded-md">
+                            {queryResponse.data.split("\n").map((el) => (
+                                <h1>
+                                    {el !== "" ? (
+                                        <>
+                                            {el} <br />
+                                        </>
+                                    ) : (
+                                        ""
+                                    )}
+                                </h1>
+                            ))}
+                        </div>
+                    )}
+                    {queryResponse.loading === 1 && (
+                        <BiLoaderAlt className="animate-spin text-slate-300" />
+                    )}
+                </>
+            )}
         </div>
     );
 };
