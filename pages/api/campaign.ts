@@ -3,7 +3,12 @@ import { getToken } from "next-auth/jwt";
 import NextCors from "nextjs-cors";
 
 import { ResponseStatusCodes } from "@/config";
-import { createNewCampaign, getCampaigns } from "@/services";
+import {
+    checkLimits,
+    createNewCampaign,
+    getCampaigns,
+    updateLimitCampaignsNumber,
+} from "@/services";
 
 export default async function createCampaign(
     req: NextApiRequest,
@@ -37,6 +42,19 @@ export default async function createCampaign(
 
     // Create new campaign
     if (method === "POST") {
+        
+        const isLimitReached = await checkLimits(token.sub!, "limitCampaigns");
+
+        if (isLimitReached) {
+            res.status(ResponseStatusCodes.ERROR.status).json({
+                data: {
+                    msg: "You have reached your limits in creating new campaigns",
+                    success: false,
+                },
+            });
+            return;
+        }
+
         // Get data
         const { campaign_status, campaign_title, campaign_objective } =
             req.body;
@@ -59,19 +77,27 @@ export default async function createCampaign(
         );
 
         if (isCampaignSaved) {
-            res.status(ResponseStatusCodes.CREATED.status).json({
-                data: {
-                    msg: ResponseStatusCodes.CREATED.msg,
-                    success: true,
-                },
-            });
+            // update limit campaigns number in db
+            try {
+                await updateLimitCampaignsNumber(token.sub!);
 
-            return;
+                res.status(ResponseStatusCodes.CREATED.status).json({
+                    data: {
+                        msg: ResponseStatusCodes.CREATED.msg,
+                        success: true,
+                    },
+                });
+
+                return;
+            } catch (error) {
+                res.status(ResponseStatusCodes.ERROR.status).json({
+                    data: {
+                        msg: ResponseStatusCodes.ERROR.msg,
+                        success: false,
+                    },
+                });
+            }
         }
-
-        res.status(ResponseStatusCodes.ERROR.status).json({
-            data: { msg: ResponseStatusCodes.ERROR.msg, success: false },
-        });
     }
 
     // Get campaigns
