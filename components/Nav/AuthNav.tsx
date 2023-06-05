@@ -4,8 +4,19 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { signOut } from "next-auth/react";
 import { BsLightningCharge } from "react-icons/bs";
+import Link from "next/link";
 
-const AuthNav = ({ user }: any) => {
+interface Props {
+    user: any;
+    upgradeButtonClicked?: boolean;
+    setUpgradeButtonClicked?: any;
+}
+
+const AuthNav = ({
+    user,
+    upgradeButtonClicked,
+    setUpgradeButtonClicked,
+}: Props) => {
     const [open, setOpen] = useState(false);
     const [isSignInOut, setIsSignInOut] = useState(false);
     const router = useRouter();
@@ -17,10 +28,10 @@ const AuthNav = ({ user }: any) => {
     };
 
     useEffect(() => {
-      router.events.on("routeChangeComplete", () => {
-          setIsSignInOut(false);
-      });
-    }, [])
+        router.events.on("routeChangeComplete", () => {
+            setIsSignInOut(false);
+        });
+    }, []);
 
     return (
         <nav className="border-[#282828] border-b bg-primary-background transition-opacity">
@@ -30,12 +41,19 @@ const AuthNav = ({ user }: any) => {
                 </div>
             )}
             <div className="w-full p-4 flex items-center justify-between">
-                <Logo />
+                <Link href={'/auth/dashboard'}>
+                    <Logo />
+                </Link>
                 <div className="flex justify-between gap-x-2 max-w-[140px] w-full">
-                    <div className="text-sm flex items-center">
+                    <div
+                        onClick={() =>
+                            setUpgradeButtonClicked(!upgradeButtonClicked)
+                        }
+                        className="text-sm flex items-center cursor-pointer"
+                    >
                         <div className="capitalize flex items-center gap-[2px] text-[12px] text-brandPaltte-500">
                             <BsLightningCharge />
-                            {user.plan ? user.plan : "upgrade"}
+                            {user && user.plan === "Free" ? "upgrade" : user.plan}
                         </div>
                     </div>
                     <div className="flex flex-col">
