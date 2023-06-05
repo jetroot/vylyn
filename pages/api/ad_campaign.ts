@@ -1,6 +1,12 @@
 import { FullAdCampaignSchema } from "@/components/Form/schema";
 import { OpenAiConfiguration, ResponseStatusCodes } from "@/config";
-import { createNewAdCampaign, getAdCampaigns } from "@/services";
+import {
+    checkLimits,
+    createNewAdCampaign,
+    getAdCampaigns,
+    updateLimitAdCampaignsNumber,
+    updateLimitRequests,
+} from "@/services";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
 import NextCors from "nextjs-cors";
@@ -37,6 +43,22 @@ export default async function createAdCampaign(
     // generate ad campaign assessment
     if (method === "POST" && _type === "_GACA") {
         try {
+            const isLimitReached = await checkLimits(
+                token.sub!,
+                "limitRequests"
+            );
+
+            if (isLimitReached) {
+                res.status(ResponseStatusCodes.LIMIT_REACHED.status).json({
+                    data: {
+                        success: false,
+                        msg: ResponseStatusCodes.LIMIT_REACHED.msg,
+                        data: [],
+                    },
+                });
+                return;
+            }
+
             const openai = new OpenAIApi(OpenAiConfiguration);
 
             const response = await openai.createCompletion({
@@ -48,6 +70,9 @@ export default async function createAdCampaign(
                 frequency_penalty: 0,
                 presence_penalty: 0,
             });
+
+            // update limit requests
+            await updateLimitRequests(token.sub!);
 
             res.status(ResponseStatusCodes.OK.status).json({
                 data: {
@@ -71,6 +96,22 @@ export default async function createAdCampaign(
     // generate queries or problems || solutions
     if (method === "POST" && _type === "_G.Q.P.S") {
         try {
+            const isLimitReached = await checkLimits(
+                token.sub!,
+                "limitRequests"
+            );
+
+            if (isLimitReached) {
+                res.status(ResponseStatusCodes.LIMIT_REACHED.status).json({
+                    data: {
+                        success: false,
+                        msg: ResponseStatusCodes.LIMIT_REACHED.msg,
+                        data: [],
+                    },
+                });
+                return;
+            }
+
             const openai = new OpenAIApi(OpenAiConfiguration);
             const response = await openai.createCompletion({
                 model: "text-davinci-003",
@@ -87,6 +128,9 @@ export default async function createAdCampaign(
             const trimmedArray = splittedData?.filter((item) => {
                 return Array.isArray(item) ? item.length > 0 : item !== "";
             });
+
+            // update limit requests
+            await updateLimitRequests(token.sub!);
 
             res.status(ResponseStatusCodes.OK.status).json({
                 data: {
@@ -110,6 +154,19 @@ export default async function createAdCampaign(
 
     // Generate response for query
     if (method === "POST" && _type === "_GRFQ") {
+        const isLimitReached = await checkLimits(token.sub!, "limitRequests");
+
+        if (isLimitReached) {
+            res.status(ResponseStatusCodes.LIMIT_REACHED.status).json({
+                data: {
+                    msg: ResponseStatusCodes.LIMIT_REACHED.msg,
+                    success: false,
+                    data: [],
+                },
+            });
+            return;
+        }
+
         const { question } = req.body;
 
         // console.log("q", question);
@@ -130,6 +187,8 @@ export default async function createAdCampaign(
             });
 
             if (response.status === 200) {
+                // update limit requests
+                await updateLimitRequests(token.sub!);
                 res.status(ResponseStatusCodes.OK.status).json({
                     // question,
                     // _type,
@@ -161,6 +220,21 @@ export default async function createAdCampaign(
 
     // Create new ad campaign
     if (method === "POST") {
+        const isLimitReached = await checkLimits(
+            token.sub!,
+            "limitAdCampaigns"
+        );
+
+        if (isLimitReached) {
+            res.status(ResponseStatusCodes.ERROR.status).json({
+                data: {
+                    msg: "You have reached your limits in creating new ad campaigns",
+                    success: false,
+                },
+            });
+            return;
+        }
+
         // Create new ad campaign
         // get data
         const data = req.body;
@@ -185,6 +259,8 @@ export default async function createAdCampaign(
         );
 
         if (isAdCampaignSaved) {
+            // Update limit ad campaigns number
+            await updateLimitAdCampaignsNumber(token.sub!);
             res.status(ResponseStatusCodes.CREATED.status).json({
                 data: {
                     msg: ResponseStatusCodes.CREATED.msg,
