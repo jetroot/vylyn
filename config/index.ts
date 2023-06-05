@@ -39,6 +39,10 @@ export const ResponseStatusCodes = {
         status: 600,
         msg: "User Already Exists!",
     },
+    LIMIT_REACHED: {
+        status: 700,
+        msg: 'You have reached your limits!'
+    }
 };
 
 // Open AI Configuration
