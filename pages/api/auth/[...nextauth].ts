@@ -71,11 +71,10 @@ export default NextAuth({
                 // Send user properties to the client
                 if (userExists) {
                     session.user.id = token.sub;
-                    // Billing properties
                     session.user.plan = userExists.plan;
-                    session.user.expiresIn = userExists.expiresIn;
-                    session.user.expired = userExists.expired;
                     session.user.limitRequests = userExists.limitRequests;
+                    session.user.limitCampaigns = userExists.limitCampaigns;
+                    session.user.limitAdCampaigns = userExists.limitAdCampaigns;
                 }
             });
 
