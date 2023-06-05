@@ -20,6 +20,7 @@ const Dashboard = () => {
     const [canFetchData, setCanFetchData] = useState(true);
     const [isLoadingData, setIsLoadingData] = useState(true);
     const [isMovingToAdCampaigns, setIsMovingToAdCampaigns] = useState(false);
+    const [upgradeButtonClicked, setUpgradeButtonClicked] = useState(false);
 
     const { data } = useSession();
     const router = useRouter();
@@ -68,113 +69,149 @@ const Dashboard = () => {
                     <div className="bg-brandPaltte-400 h-[3px] w-1/2 animate-wiggle"></div>
                 </div>
             )}
-            <AuthNav user={data?.user} />
-            <div className="max-w-screen-2xl w-full mx-auto mt-6 px-3">
-                <div className="flex justify-between w-full">
-                    <div>
-                        <p className="text-white text-md">Your Ad Campaigns</p>
+            <AuthNav
+                setUpgradeButtonClicked={setUpgradeButtonClicked}
+                upgradeButtonClicked={upgradeButtonClicked}
+                user={data?.user}
+            />
 
-                        {!isLoadingData && campaigns.docs.length === 0 && (
-                            <p className="text-[#5d5d5d] text-[12px] mt-5">
-                                No campaigns yet!
-                            </p>
+            {upgradeButtonClicked && <Pricing showNav={false} />}
+
+            {!upgradeButtonClicked && (
+                <div className="max-w-screen-2xl w-full mx-auto mt-6 px-3">
+                    <div className="flex justify-between w-full">
+                        {!(
+                            data?.user.limitRequests === 0 &&
+                            data?.user.limitCampaigns === 0 &&
+                            data?.user.limitAdCampaigns === 0
+                        ) && (
+                            <div>
+                                <p className="text-white text-md">
+                                    Your Ad Campaigns
+                                </p>
+
+                                {!isLoadingData &&
+                                    campaigns.docs.length === 0 && (
+                                        <p className="text-[#5d5d5d] text-[12px] mt-5">
+                                            No campaigns yet!
+                                        </p>
+                                    )}
+                            </div>
+                        )}
+
+                        {!(
+                            data?.user.limitRequests === 0 &&
+                            data?.user.limitCampaigns === 0 &&
+                            data?.user.limitAdCampaigns === 0
+                        ) ? (
+                            <div>
+                                <button
+                                    type="button"
+                                    onClick={() => setShowModel(true)}
+                                    className="bg-alt-background text-typography-body-dark text-[13px] py-2 px-3 rounded-md"
+                                >
+                                    Create Campaign
+                                </button>
+                            </div>
+                        ) : (
+                            <Pricing showNav={false} />
                         )}
                     </div>
 
-                    {/* {data?.user.plan && data.user} */}
-                    {true ? (
-                        <div>
-                            <button
-                                type="button"
-                                onClick={() => setShowModel(true)}
-                                className="bg-alt-background text-typography-body-dark text-[13px] py-2 px-3 rounded-md"
-                            >
-                                Create Campaign
-                            </button>
+                    {/* Start */}
+                    {!isLoadingData &&
+                        !(
+                            data?.user.limitRequests === 0 &&
+                            data?.user.limitCampaigns === 0 &&
+                            data?.user.limitAdCampaigns === 0
+                        ) && (
+                            <div className="grid grid-cols-3 place-items-center gap-x-4 max-md:grid-cols-1 max-md:mx-auto">
+                                {campaigns.docs.map((campaign) => (
+                                    <div
+                                        className="w-full h-auto mt-2 mb-6"
+                                        key={campaign._id}
+                                    >
+                                        <Link
+                                            onClick={() =>
+                                                setIsMovingToAdCampaigns(true)
+                                            }
+                                            href={`/auth/campaign/${campaign._id}`}
+                                            className="w-full max-w-xl shadow-[0_-1px_0_0_#5d5d5d,0_2px_0_2px_#161616] flex flex-col h-72 p-6 rounded-lg mt-8 "
+                                        >
+                                            <div className="uppercase text-[#5d5d5d] text-right font-medium ">
+                                                {campaign.campaign_status}
+                                            </div>
+                                            <div className="capitalize overflow-hidden text-2xl leading-10 text-left text-[#cdcdcd] py-14 max-w-md">
+                                                {campaign.campaign_title}
+                                            </div>
+                                            <div className="capitalize flex justify-between w-full text-[#5d5d5d]">
+                                                <div className="">
+                                                    {
+                                                        campaign.campaign_objective
+                                                    }
+                                                </div>
+                                                <div>
+                                                    {new Date(
+                                                        campaign.createdAt
+                                                    )
+                                                        .toDateString()
+                                                        .substring(4)}
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
+                    {isLoadingData && (
+                        <div className="w-full flex justify-center items-center">
+                            <RiLoader3Fill
+                                size={30}
+                                className="text-slate-300 animate-spin text-center"
+                            />
                         </div>
-                    ) : (
-                        <Pricing showNav={false} />
+                    )}
+                    {/* End */}
+
+                    {/* Pagination */}
+                    {!isLoadingData &&
+                        !(
+                            data?.user.limitRequests === 0 &&
+                            data?.user.limitCampaigns === 0 &&
+                            data?.user.limitAdCampaigns === 0
+                        ) &&
+                        campaigns.totalPages > 1 && (
+                            <div className="text-white flex justify-center max-w-md w-full mx-auto my-12">
+                                {campaigns.hasPrevPage && (
+                                    <Link
+                                        href={`/auth/dashboard?p=${campaigns.prevPage}`}
+                                        className="hover:bg-slate-400 rounded-full py-2 px-10"
+                                    >
+                                        Previous
+                                    </Link>
+                                )}
+
+                                {campaigns.hasNextPage && (
+                                    <Link
+                                        href={`/auth/dashboard?p=${campaigns.nextPage}`}
+                                        className="hover:bg-slate-400 rounded-full py-2 px-10"
+                                    >
+                                        Next
+                                    </Link>
+                                )}
+                            </div>
+                        )}
+
+                    {showModel && (
+                        <FormModel
+                            toggle={showModel}
+                            toggleModel={setShowModel}
+                            fetchData={setCanFetchData}
+                        />
                     )}
                 </div>
-
-                {/* Start */}
-                {!isLoadingData && (
-                    <div className="grid grid-cols-3 place-items-center gap-x-4 max-md:grid-cols-1 max-md:mx-auto">
-                        {campaigns.docs.map((campaign) => (
-                            <div
-                                className="w-full h-auto mt-2 mb-6"
-                                key={campaign._id}
-                            >
-                                <Link
-                                    onClick={() =>
-                                        setIsMovingToAdCampaigns(true)
-                                    }
-                                    href={`/auth/campaign/${campaign._id}`}
-                                    className="w-full max-w-xl shadow-[0_-1px_0_0_#5d5d5d,0_2px_0_2px_#161616] flex flex-col h-72 p-6 rounded-lg mt-8 "
-                                >
-                                    <div className="uppercase text-[#5d5d5d] text-right font-medium ">
-                                        {campaign.campaign_status}
-                                    </div>
-                                    <div className="capitalize overflow-hidden text-2xl leading-10 text-left text-[#cdcdcd] py-14 max-w-md">
-                                        {campaign.campaign_title}
-                                    </div>
-                                    <div className="capitalize flex justify-between w-full text-[#5d5d5d]">
-                                        <div className="">
-                                            {campaign.campaign_objective}
-                                        </div>
-                                        <div>
-                                            {new Date(campaign.createdAt)
-                                                .toDateString()
-                                                .substring(4)}
-                                        </div>
-                                    </div>
-                                </Link>
-                            </div>
-                        ))}
-                    </div>
-                )}
-
-                {isLoadingData && (
-                    <div className="w-full flex justify-center items-center">
-                        <RiLoader3Fill
-                            size={30}
-                            className="text-slate-300 animate-spin text-center"
-                        />
-                    </div>
-                )}
-                {/* End */}
-
-                {/* Pagination */}
-                {!isLoadingData && campaigns.totalPages > 1 && (
-                    <div className="text-white flex justify-center max-w-md w-full mx-auto my-12">
-                        {campaigns.hasPrevPage && (
-                            <Link
-                                href={`/auth/dashboard?p=${campaigns.prevPage}`}
-                                className="hover:bg-slate-400 rounded-full py-2 px-10"
-                            >
-                                Previous
-                            </Link>
-                        )}
-
-                        {campaigns.hasNextPage && (
-                            <Link
-                                href={`/auth/dashboard?p=${campaigns.nextPage}`}
-                                className="hover:bg-slate-400 rounded-full py-2 px-10"
-                            >
-                                Next
-                            </Link>
-                        )}
-                    </div>
-                )}
-
-                {showModel && (
-                    <FormModel
-                        toggle={showModel}
-                        toggleModel={setShowModel}
-                        fetchData={setCanFetchData}
-                    />
-                )}
-            </div>
+            )}
         </>
     ) : (
         <div className="flex flex-col justify-center items-center w-screen h-screen overflow-hidden">
