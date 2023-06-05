@@ -1,5 +1,5 @@
-import Link from "next/link";
-import React from "react";
+import PaypalButtonProvider from "@/components/Payment/paypalButtonProvider";
+import { useState } from "react";
 import { BsCheckLg } from "react-icons/bs";
 
 interface Props {
@@ -49,8 +49,8 @@ const PricingCard = (props: Props) => {
                         Getting started with:
                     </span>
 
-                    {props.planFeatures.map((planFeature) => (
-                        <div className="flex items-center gap-x-2 py-2 mt-2">
+                    {props.planFeatures.map((planFeature, index) => (
+                        <div key={`${planFeature.price}-${index}`} className="flex items-center gap-x-2 py-2 mt-2">
                             <span className="text-brandPaltte-500">
                                 <BsCheckLg size={20} fontWeight={"bold"} />
                             </span>
@@ -62,14 +62,11 @@ const PricingCard = (props: Props) => {
                 </div>
             </div>
 
-            <Link
-                href={"/"}
-                className="w-full mx-auto flex justify-center absolute bottom-5"
-            >
-                <div className="bg-brandColor w-10/12 text-center p-1.5 rounded-md text-white text-sm border-[1.5px] border-brandPaltte-500">
-                    Get Started
-                </div>
-            </Link>
+            <div className="w-full mx-auto flex justify-center absolute bottom-5">
+                {!(props.plan.toLowerCase() === 'free') && <div className="bg-brandColor border-brandPaltte-500 w-10/12 text-center rounded-md text-white text-sm border-[1.5px]">
+                    <PaypalButtonProvider plan={props.plan} />
+                </div> }
+            </div>
         </div>
     );
 };

@@ -17,7 +17,11 @@ const Pricing = ({ showNav = true }: any) => {
             planDescription: "Perfect for passion projects & simple websites.",
             price: 0,
             priceDescription: "per month per campaign",
-            planFeatures: ["3 campaigns", "100 requests", "No stored cloud data"],
+            planFeatures: [
+                "3 campaigns",
+                "100 requests",
+                "No stored cloud data",
+            ],
         },
         {
             plan: "pro",
@@ -47,14 +51,17 @@ const Pricing = ({ showNav = true }: any) => {
 
                 <div className="max-w-6xl mx-auto grid grid-cols-3 max-md:grid-cols-1 max-lg:grid-cols-2 gap-4 my-14 p-2">
                     {pricesData.map(
-                        ({
-                            plan,
-                            planDescription,
-                            price,
-                            priceDescription,
-                            planFeatures,
-                        }) => (
-                            <div>
+                        (
+                            {
+                                plan,
+                                planDescription,
+                                price,
+                                priceDescription,
+                                planFeatures,
+                            },
+                            index
+                        ) => (
+                            <div key={plan}>
                                 {plan === "starter" ? (
                                     <div className="p-3 h-10 bg-brandPaltte-500 rounded-t-md text-white text-center text-[0.8rem]">
                                         Most Popular
@@ -63,7 +70,6 @@ const Pricing = ({ showNav = true }: any) => {
                                     <div className="h-10"></div>
                                 )}
                                 <PricingCard
-                                    key={`${plan}-${price}`}
                                     plan={plan}
                                     planDescription={planDescription}
                                     price={price}
