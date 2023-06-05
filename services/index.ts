@@ -1,9 +1,8 @@
-import { OpenAiConfiguration, connectToDb } from "@/config";
+import { ResponseStatusCodes, connectToDb } from "@/config";
+import { getPlanFeatures } from "@/data/pricing";
 import AdCampaign from "@/schema/AdCampaignSchema";
 import Campaign from "@/schema/CampaignSchema";
-// import mongoose from "mongoose";
-import { OpenAIApi } from "openai";
-// import aggregatePaginate from "mongoose-aggregate-paginate-v2";
+import User from "@/schema/UserSchema";
 
 // Create new campaign
 export const createNewCampaign = async (
@@ -122,7 +121,6 @@ export const getAdCampaigns = async (
 
     try {
         await connectToDb().then(async () => {
-
             const adCampaign = AdCampaign.aggregate();
             adCampaign.lookup({
                 from: "campaigns", // The collection name for the related model
@@ -137,9 +135,7 @@ export const getAdCampaigns = async (
 
             await AdCampaign.aggregatePaginate(adCampaign, options)
                 .then(function (results: any) {
-
                     results.docs.map((result) => {
-
                         if (result.campaign_id.toString() === campaignId) {
                             data.push(result);
                         }
@@ -153,5 +149,171 @@ export const getAdCampaigns = async (
         console.log("err", error);
     } finally {
         return data;
+    }
+};
+
+// Update limit ad campaigns number
+export const updateLimitAdCampaignsNumber = async (userId: string) => {
+    try {
+        await connectToDb()
+            .then(async () => {
+                await User.findOneAndUpdate(
+                    { userId, limitAdCampaigns: { $gt: 0 } },
+                    {
+                        $inc: {
+                            limitAdCampaigns: -1,
+                        },
+                    }
+                );
+            })
+            .catch(() => {
+                // console.log("1. err");
+                throw new Error(ResponseStatusCodes.ERROR.msg);
+            });
+    } catch (error) {
+        // console.log("2. err", error);
+        throw new Error(ResponseStatusCodes.ERROR.msg);
+    }
+};
+
+// Update limit campaigns number
+export const updateLimitCampaignsNumber = async (userId: string) => {
+    try {
+        await connectToDb()
+            .then(async () => {
+                await User.findOneAndUpdate(
+                    { userId, limitCampaigns: { $gt: 0 } },
+                    {
+                        $inc: {
+                            limitCampaigns: -1,
+                        },
+                    }
+                );
+            })
+            .catch(() => {
+                // console.log("1. err");
+                throw new Error(ResponseStatusCodes.ERROR.msg);
+            });
+    } catch (error) {
+        // console.log("2. err", error);
+        throw new Error(ResponseStatusCodes.ERROR.msg);
+    }
+};
+
+// Update limit requests number
+export const updateLimitRequests = async (userId: string) => {
+    try {
+        await connectToDb()
+            .then(async () => {
+                await User.findOneAndUpdate(
+                    { userId, limitRequests: { $gt: 0 } },
+                    {
+                        $inc: {
+                            limitRequests: -1,
+                        },
+                    }
+                );
+            })
+            .catch(() => {
+                // console.log("1. err");
+                throw new Error(ResponseStatusCodes.ERROR.msg);
+            });
+    } catch (error) {
+        // console.log("2. err", error);
+        throw new Error(ResponseStatusCodes.ERROR.msg);
+    }
+};
+
+// Pay subscription
+export const paySubscription = async (userId: string, plan: string) => {
+    try {
+        // paidAt and expiredAt properties
+        const paidAt = Date.now();
+        const expiredAt = new Date();
+        expiredAt.setMonth(expiredAt.getMonth() + 1);
+
+        // get plan features
+        const planFeatures = getPlanFeatures(plan);
+        // console.log("plan__", planFeatures?.plan);
+
+        // return;
+        // data that should be updated
+        const data = {
+            plan,
+            limitRequests: planFeatures?.limitRequests,
+            limitCampaigns: planFeatures?.limitCampaigns,
+            limitAdCampaigns: planFeatures?.limitAdCampaigns,
+            paidAt,
+            expiredAt,
+        };
+
+        // check if there data
+        if (
+            !plan &&
+            !planFeatures?.plan &&
+            !planFeatures?.limitRequests &&
+            !planFeatures?.limitCampaigns &&
+            !planFeatures?.limitAdCampaigns
+        ) {
+            throw new Error("data cannot be null");
+        }
+
+        await connectToDb()
+            .then(async () => {
+                await User.findOneAndUpdate(
+                    // Query condition to find the document
+                    { userId },
+
+                    // Update object with the new values
+                    data
+                )
+                    .then((updatedUser) => {
+                        // console.log("updatedUser", updatedUser);
+                    })
+                    .catch(() => {
+                        throw new Error("something went wrong");
+                    });
+            })
+            .catch(() => {
+                throw new Error("something went wrong");
+            });
+    } catch (error) {
+        throw new Error("something went wrong");
+    }
+};
+
+// Check limits of requests, campaigns, adcampaigns
+export const checkLimits = async (
+    userId: string,
+    type: string
+): Promise<boolean> => {
+    let isLimitReached = false;
+
+    try {
+        await connectToDb()
+            .then(async () => {
+                const data = await User.findOne({ userId });
+                console.log("data", data);
+
+                console.log("type", type);
+                console.log(`data[${type}]`, data[`${type}`]);
+                console.log(`data[${type}] > 0`, data[`${type}`] > 0);
+
+                if (!(parseInt(data[`${type}`]) === 0)) {
+                    console.log("inside");
+                    isLimitReached = false;
+                    return isLimitReached;
+                }
+
+                isLimitReached = true;
+            })
+            .catch(() => {
+                isLimitReached = false;
+            });
+    } catch (error) {
+        isLimitReached = false;
+    } finally {
+        console.log("isLimitReached", isLimitReached);
+        return isLimitReached;
     }
 };
