@@ -7,11 +7,13 @@ const Error404 = () => {
                 404
             </h1>
             <p className="text-center text-white text-sm">
-                We couldn't find the page that you're looking for!
+                We couldn&apos;t find the page that you&apos;re looking for!
             </p>
 
             <Link href={"/"}>
-                <div className="bg-slate-300 p-2 rounded-md my-8">Go back to home</div>
+                <div className="bg-slate-300 p-2 rounded-md my-8">
+                    Go back to home
+                </div>
             </Link>
         </div>
     );

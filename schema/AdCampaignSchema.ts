@@ -30,7 +30,7 @@ const AdCampaignSchema = new Schema(
 
 AdCampaignSchema.plugin(aggregatePaginate);
 
-const AdCampaign =
+const AdCampaign: any =
     mongoose.models.AdCampaign ||
     mongoose.model("AdCampaign", AdCampaignSchema);
 

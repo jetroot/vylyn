@@ -12,7 +12,7 @@ interface Props {
 }
 
 const PaypalButtonProvider = ({ plan }: Props) => {
-    const session = useSession();
+    const session: any = useSession();
     const router = useRouter();
 
     const [paypalButtonClicked, setPaypalButtonClicked] = useState(false)
@@ -50,7 +50,7 @@ const PaypalButtonProvider = ({ plan }: Props) => {
                 paypalButtonClicked  ? <div className={"p-1.5 flex justify-center"}><BiLoaderAlt className={'animate-spin'} /></div> : <button
                     type="button"
                     onClick={() => {
-                        handlePay(session.data?.user.id, plan);
+                        handlePay(session.data?.user?.id, plan);
                     }}
                     className="w-full flex justify-center items-center gap-2 text-md p-1.5"
                 >

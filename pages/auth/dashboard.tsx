@@ -16,15 +16,15 @@ import { useRouter } from "next/router";
 const Dashboard = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [showModel, setShowModel] = useState(false);
-    const [campaigns, setCampaigns] = useState<Array<any>>([]);
+    const [campaigns, setCampaigns] = useState<any>([]);
     const [canFetchData, setCanFetchData] = useState(true);
     const [isLoadingData, setIsLoadingData] = useState(true);
     const [isMovingToAdCampaigns, setIsMovingToAdCampaigns] = useState(false);
     const [upgradeButtonClicked, setUpgradeButtonClicked] = useState(false);
 
-    const { data } = useSession();
+    const { data }: any = useSession();
     const router = useRouter();
-    let { p } = router.query;
+    let { p }: any = router.query;
 
     if (!p) {
         p = 1;
@@ -126,7 +126,7 @@ const Dashboard = () => {
                             data?.user.limitAdCampaigns === 0
                         ) && (
                             <div className="grid grid-cols-3 place-items-center gap-x-4 max-md:grid-cols-1 max-md:mx-auto">
-                                {campaigns.docs.map((campaign) => (
+                                {campaigns.docs.map((campaign: any) => (
                                     <div
                                         className="w-full h-auto mt-2 mb-6"
                                         key={campaign._id}

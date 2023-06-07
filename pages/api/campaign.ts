@@ -102,7 +102,10 @@ export default async function createCampaign(
 
     // Get campaigns
     if (method === "GET") {
-        const campaigns = await getCampaigns(token.sub!, p);
+        const campaigns = await getCampaigns(
+            token.sub!,
+            parseInt(p?.toString()!)
+        );
         // console.log('camps', campaigns)
         res.status(ResponseStatusCodes.OK.status).json({
             data: {

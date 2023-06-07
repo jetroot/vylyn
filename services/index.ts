@@ -135,7 +135,7 @@ export const getAdCampaigns = async (
 
             await AdCampaign.aggregatePaginate(adCampaign, options)
                 .then(function (results: any) {
-                    results.docs.map((result) => {
+                    results.docs.map((result: any) => {
                         if (result.campaign_id.toString() === campaignId) {
                             data.push(result);
                         }
@@ -293,14 +293,14 @@ export const checkLimits = async (
         await connectToDb()
             .then(async () => {
                 const data = await User.findOne({ userId });
-                console.log("data", data);
+                // console.log("data", data);
 
-                console.log("type", type);
-                console.log(`data[${type}]`, data[`${type}`]);
-                console.log(`data[${type}] > 0`, data[`${type}`] > 0);
+                // console.log("type", type);
+                // console.log(`data[${type}]`, data[`${type}`]);
+                // console.log(`data[${type}] > 0`, data[`${type}`] > 0);
 
                 if (!(parseInt(data[`${type}`]) === 0)) {
-                    console.log("inside");
+                    // console.log("inside");
                     isLimitReached = false;
                     return isLimitReached;
                 }
@@ -313,7 +313,7 @@ export const checkLimits = async (
     } catch (error) {
         isLimitReached = false;
     } finally {
-        console.log("isLimitReached", isLimitReached);
+        // console.log("isLimitReached", isLimitReached);
         return isLimitReached;
     }
 };
