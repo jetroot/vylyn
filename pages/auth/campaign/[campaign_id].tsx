@@ -50,7 +50,6 @@ const Ads = () => {
     const [loadingAdCampaigns, setLoadingAdCampaigns] = useState(true);
     const [canFetchData, setCanFetchData] = useState(true);
     const [upgradeButtonClicked, setUpgradeButtonClicked] = useState(false);
-
     const [campaignShouldBeAssessed, setCampaignShouldBeAssessed] =
         useState<CampaignShoulBeAssessed>({
             campaignData: {
@@ -535,6 +534,7 @@ const Ads = () => {
                                                         Generate
                                                     </button>
                                                 )} */}
+
                                                         </td>
                                                         <td className="flex items-center justify-center gap-1 td">
                                                             <button

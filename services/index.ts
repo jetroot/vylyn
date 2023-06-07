@@ -135,6 +135,7 @@ export const getAdCampaigns = async (
 
             await AdCampaign.aggregatePaginate(adCampaign, options)
                 .then(function (results: any) {
+
                     results.docs.map((result) => {
                         if (result.campaign_id.toString() === campaignId) {
                             data.push(result);
@@ -150,6 +151,7 @@ export const getAdCampaigns = async (
     } finally {
         return data;
     }
+
 };
 
 // Update limit ad campaigns number
