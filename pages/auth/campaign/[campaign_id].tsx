@@ -50,7 +50,6 @@ const Ads = () => {
     const [loadingAdCampaigns, setLoadingAdCampaigns] = useState(true);
     const [canFetchData, setCanFetchData] = useState(true);
     const [upgradeButtonClicked, setUpgradeButtonClicked] = useState(false);
-
     const [campaignShouldBeAssessed, setCampaignShouldBeAssessed] =
         useState<CampaignShoulBeAssessed>({
             campaignData: {
@@ -116,6 +115,7 @@ const Ads = () => {
         data: any,
         campaignId: string
     ) => {
+
         try {
             // campaign that will be assessed
             // cuting 3 properties from the original ad campaign
@@ -238,6 +238,7 @@ const Ads = () => {
                     loading: false,
                 });
             }
+
         } catch (error: any) {
             if (error?.response.status === 700) {
                 setUpgradeButtonClicked(true);
