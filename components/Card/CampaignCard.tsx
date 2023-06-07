@@ -46,25 +46,35 @@ const CampaignCard = ({
         type: string,
         campaignData: any
     ) => {
-        if (type === "queries") {
-            const q = question.substring(3);
-            // console.log(`q: ${q}  type: ${annotated}`);
 
-            setQueryResponse({
-                ...queryResponse,
-                loading: 1,
-            });
+        try {
+            if (type === "queries") {
+                const q = question.substring(3);
+                // console.log(`q: ${q}  type: ${annotated}`);
 
-            const response = await axios.post("/api/ad_campaign", {
-                _type: "_GRFQ", // Stands for Generate Response For Query
-                campaign_should_assessed: campaignData,
-                question: q,
-            });
+                setQueryResponse({
+                    ...queryResponse,
+                    loading: 1,
+                });
 
-            if (response.data.data.success) {
+                const response = await axios.post("/api/ad_campaign", {
+                    _type: "_GRFQ", // Stands for Generate Response For Query
+                    campaign_should_assessed: campaignData,
+                    question: q,
+                });
+
+                if (response.data.data.success) {
+                    setQueryResponse({
+                        loading: 0,
+                        data: response.data.data.data,
+                    });
+                }
+            }
+        } catch (error: any) {
+            if (error?.response.status === 700) {
                 setQueryResponse({
                     loading: 0,
-                    data: response.data.data.data,
+                    data: error.response.data.data.msg,
                 });
             }
         }
@@ -115,7 +125,7 @@ const CampaignCard = ({
                                     );
                                 }}
                                 className={`${style} hover:border-slate-500 hover:border ${
-                                    annotated === 'queries' && "cursor-pointer"
+                                    annotated === "queries" && "cursor-pointer"
                                 } flex-col w-1/4 rounded-lg p-4 bg-[#282828] shadow-[0_1_0_5px_#5d5d5d]`}
                             >
                                 <div className="flex justify-end">

@@ -17,7 +17,8 @@
 | Create ads dashboard at vylyn  |  ✔️  | ✅ |
 | Configure Davinchi model  | ✔️ | ✅ |
 | Analyze campaigns & performance using tips & suggestions  | ✔️ | ✅ |
-| Configuring paypal api for payments  |  ❌  | ❌ |
+| Configuring paypal api for payments  | ✔️| ✅ |
+| Testing   | ✔️ | ❌ |
 
 ## Thanks
 - Give it a star ⭐ if you like it 
