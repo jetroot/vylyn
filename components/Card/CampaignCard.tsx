@@ -46,6 +46,7 @@ const CampaignCard = ({
         type: string,
         campaignData: any
     ) => {
+
         try {
             if (type === "queries") {
                 const q = question.substring(3);
