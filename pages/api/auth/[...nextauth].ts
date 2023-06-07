@@ -20,15 +20,21 @@ export default NextAuth({
         }),
     ],
     callbacks: {
-        async signIn({ user, profile }) {
+        async signIn({
+            user,
+            account,
+            profile,
+            email,
+            credentials,
+        }): Promise<string | boolean> {
             // is user authenticated
-            let isAuthenticate;
+            let isAuthenticate: boolean = false;
 
             if (user.id) {
                 try {
                     // encode the token
                     const tk = await encode({
-                        token: user,
+                        token: user as any,
                         secret: process.env.NEXTAUTH_SECRET!,
                     });
 

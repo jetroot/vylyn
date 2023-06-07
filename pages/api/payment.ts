@@ -60,7 +60,7 @@ export default async function payWithPaypal(
             return;
         }
 
-        const execute_payment_json = {
+        const execute_payment_json: any = {
             payer_id: PayerID,
             transactions: [
                 {
@@ -73,7 +73,7 @@ export default async function payWithPaypal(
         };
 
         paypal.payment.execute(
-            paymentId,
+            paymentId?.toString()!,
             execute_payment_json,
             async function (error, payment) {
                 if (error) {
@@ -100,7 +100,6 @@ export default async function payWithPaypal(
                         // save data
                         await paySubscription(custom?.userId, custom?.plan);
                         res.redirect("/payment/success");
-
                     } catch (error) {
                         console.log("err.2 - execute", error);
                         res.redirect("/payment/cancel");
@@ -159,31 +158,34 @@ export default async function payWithPaypal(
             ],
         };
 
-        paypal.payment.create(create_payment_json, async function (error, payment) {
-            if (error) {
-                console.log("err", JSON.stringify(error));
-                throw error;
-            } else {
-                console.log("Create Payment Response");
+        paypal.payment.create(
+            create_payment_json,
+            async function (error, payment) {
+                if (error) {
+                    console.log("err", JSON.stringify(error));
+                    throw error;
+                } else {
+                    console.log("Create Payment Response");
 
-                try {
-                    // await updateLimitCampaignsNumber(token.sub!);
-                    payment.links?.forEach(async (pay) => {
-                        if (pay.rel === "approval_url") {
-                            res.status(ResponseStatusCodes.OK.status).json({
-                                success: true,
-                                data: {
-                                    forwardLink: pay.href,
-                                },
-                            });
-                            return;
-                        }
-                    });
-                } catch (error) {
-                    res.redirect("/payment/cancel");
-                    return;
+                    try {
+                        // await updateLimitCampaignsNumber(token.sub!);
+                        payment.links?.forEach(async (pay) => {
+                            if (pay.rel === "approval_url") {
+                                res.status(ResponseStatusCodes.OK.status).json({
+                                    success: true,
+                                    data: {
+                                        forwardLink: pay.href,
+                                    },
+                                });
+                                return;
+                            }
+                        });
+                    } catch (error) {
+                        res.redirect("/payment/cancel");
+                        return;
+                    }
                 }
             }
-        });
+        );
     }
 }

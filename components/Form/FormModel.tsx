@@ -21,7 +21,7 @@ const FormModel = ({ toggle, toggleModel, fetchData }: any) => {
         msg: "",
     });
 
-    const submitForm = async (values, actions) => {
+    const submitForm = async (values: any, actions: any) => {
         // console.log("values", values);
         // console.log("actions", actions);
         try {

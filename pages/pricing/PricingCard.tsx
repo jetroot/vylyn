@@ -49,7 +49,7 @@ const PricingCard = (props: Props) => {
                         Getting started with:
                     </span>
 
-                    {props.planFeatures.map((planFeature, index) => (
+                    {props.planFeatures && props.planFeatures.map((planFeature: any, index) => (
                         <div key={`${planFeature.price}-${index}`} className="flex items-center gap-x-2 py-2 mt-2">
                             <span className="text-brandPaltte-500">
                                 <BsCheckLg size={20} fontWeight={"bold"} />
@@ -63,7 +63,7 @@ const PricingCard = (props: Props) => {
             </div>
 
             <div className="w-full mx-auto flex justify-center absolute bottom-5">
-                {!(props.plan.toLowerCase() === 'free') && <div className="bg-brandColor border-brandPaltte-500 w-10/12 text-center rounded-md text-white text-sm border-[1.5px]">
+                {props.plan && !(props.plan.toLowerCase() === 'free') && <div className="bg-brandColor border-brandPaltte-500 w-10/12 text-center rounded-md text-white text-sm border-[1.5px]">
                     <PaypalButtonProvider plan={props.plan} />
                 </div> }
             </div>

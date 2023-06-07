@@ -104,7 +104,7 @@ const CampaignCard = ({
             {!campaignShouldBeAssessed.loading &&
                 campaignShouldBeAssessed.type === annotated && (
                     <div className="flex gap-3 my-10 overflow-auto">
-                        {generatedData.map((item, index) => (
+                        {generatedData.map((item: any, index: any) => (
                             <div
                                 key={index}
                                 onClick={() => {
@@ -142,8 +142,8 @@ const CampaignCard = ({
                 <>
                     {queryResponse.loading === 0 && (
                         <div className="border border-slate-500 text-slate-300 p-3 rounded-md">
-                            {queryResponse.data.split("\n").map((el) => (
-                                <h1>
+                            {queryResponse.data.split("\n").map((el, index) => (
+                                <h1 key={index}>
                                     {el !== "" ? (
                                         <>
                                             {el} <br />

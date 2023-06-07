@@ -49,7 +49,7 @@ const AdCampaignForm = ({ toggle, toggleModel, fetchData }: any) => {
     const { campaign_id } = router.query;
     // console.log("campaign_id", campaign_id);
 
-    const submitForm = async (values, actions) => {
+    const submitForm = async (values: any, actions: any) => {
         if (slideID >= LAST_SLIDE_ID) {
             // console.log("Creating ad campaign ...");
             // console.log("values", values);
@@ -82,7 +82,7 @@ const AdCampaignForm = ({ toggle, toggleModel, fetchData }: any) => {
                     actions.resetForm();
                     setSlideID(0);
                 }
-            } catch (error) {
+            } catch (error: any) {
                 setIsCampaignCreated({
                     showMessage: true,
                     success: false,

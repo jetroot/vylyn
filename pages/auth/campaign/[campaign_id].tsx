@@ -35,7 +35,7 @@ interface CampaignShoulBeAssessed {
 }
 
 const Ads = () => {
-    const { data } = useSession();
+    const { data }: any = useSession();
     const [isLoading, setIsLoading] = useState(true);
     const [adCampaignAssessment, setAdCampaignAssessment] =
         useState<AdCampaignAssessment>({
@@ -115,50 +115,62 @@ const Ads = () => {
         data: any,
         campaignId: string
     ) => {
-        // campaign that will be assessed
-        // cuting 3 properties from the original ad campaign
-        const campaign_should_assessed = {
-            "amount spent": `$${data.amount_spent}`,
-            budget: `$${data.budget}`,
-            "campaign objective":
-                data.campaign[0].campaign_objective?.toLowerCase(),
-            "cost per result": `$${data.cost_per_result}`,
-            cpc: `$${data.cpc}`,
-            cpm: `$${data.cpm}`,
-            ctr: data.ctr,
-            frequency: data.frequency,
-            impressions: data.impressions,
-            "link clicks": data.link_clicks,
-            reach: data.reach,
-            results: data.results,
-            "target countries": data.target_countries,
-            "target gender": data.target_gender?.toLowerCase(),
-        };
 
-        setAdCampaignAssessment({
-            data: "",
-            campaignId,
-            loading: true,
-        });
+        try {
+            // campaign that will be assessed
+            // cuting 3 properties from the original ad campaign
+            const campaign_should_assessed = {
+                "amount spent": `$${data.amount_spent}`,
+                budget: `$${data.budget}`,
+                "campaign objective":
+                    data.campaign[0].campaign_objective?.toLowerCase(),
+                "cost per result": `$${data.cost_per_result}`,
+                cpc: `$${data.cpc}`,
+                cpm: `$${data.cpm}`,
+                ctr: data.ctr,
+                frequency: data.frequency,
+                impressions: data.impressions,
+                "link clicks": data.link_clicks,
+                reach: data.reach,
+                results: data.results,
+                "target countries": data.target_countries,
+                "target gender": data.target_gender?.toLowerCase(),
+            };
 
-        const response = await axios.post("/api/ad_campaign", {
-            _type: "_GACA", // _GACA stands for GenerateAdCampaignAssessment
-            campaign_should_assessed,
-            query: "assess & analyze this campaign based on it's & objective in 100 characters",
-        });
-
-        if (response.data.data.success && response.status === 200) {
-            setAdCampaignAssessment({
-                data: response.data.data.data.choices[0].text,
-                campaignId,
-                loading: false,
-            });
-        } else {
             setAdCampaignAssessment({
                 data: "",
                 campaignId,
-                loading: false,
+                loading: true,
             });
+
+            const response = await axios.post("/api/ad_campaign", {
+                _type: "_GACA", // _GACA stands for GenerateAdCampaignAssessment
+                campaign_should_assessed,
+                query: "assess & analyze this campaign based on it's & objective in 100 characters",
+            });
+
+            if (response.data.data.success && response.status === 200) {
+                setAdCampaignAssessment({
+                    data: response.data.data.data.choices[0].text,
+                    campaignId,
+                    loading: false,
+                });
+            } else {
+                setAdCampaignAssessment({
+                    data: "",
+                    campaignId,
+                    loading: false,
+                });
+            }
+        } catch (error: any) {
+            // console.log('Err: ', error)
+            if (error?.response.status === 700) {
+                setUpgradeButtonClicked(true);
+                setAdCampaignAssessment({
+                    ...adCampaignAssessment,
+                    loading: false
+                })
+            }
         }
     };
 
@@ -226,11 +238,16 @@ const Ads = () => {
                     loading: false,
                 });
             }
-        } catch (error) {
+
+        } catch (error: any) {
             if (error?.response.status === 700) {
                 setUpgradeButtonClicked(true);
+                setCampaignShouldBeAssessed({
+                    ...campaignShouldBeAssessed,
+                    loading: false
+                })
             }
-            console.log('err', error)
+            // console.log('err', error)
         }
     };
 
@@ -248,7 +265,7 @@ const Ads = () => {
 
             {!upgradeButtonClicked &&
             !(
-                data?.user.limitRequests === 0 &&
+                data?.user?.limitRequests === 0 &&
                 data?.user.limitCampaigns === 0 &&
                 data?.user.limitAdCampaigns === 0
             ) ? (
@@ -534,7 +551,6 @@ const Ads = () => {
                                                         Generate
                                                     </button>
                                                 )} */}
-
                                                         </td>
                                                         <td className="flex items-center justify-center gap-1 td">
                                                             <button

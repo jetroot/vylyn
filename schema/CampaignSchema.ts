@@ -93,6 +93,6 @@ const CampaignSchema: Schema<ICampaign> = new Schema(
 
 CampaignSchema.plugin(mongoosePaginate);
 
-const Campaign = mongoose.models.Campaign || mongoose.model<ICampaign>("Campaign", CampaignSchema);
+const Campaign: any = mongoose.models.Campaign || mongoose.model<ICampaign>("Campaign", CampaignSchema);
 
 export default Campaign;

@@ -74,9 +74,9 @@ const SignUp = () => {
 
                 <div className="flex justify-center">
                     <small className="max-w-sm mx-auto px-8 w-full text-center absolute bottom-6 text-gray-500 text-[0.7rem]">
-                        By continuing, you agree to Vylyn's Terms of Service and
-                        Privacy Policy, and to receive periodic emails with
-                        updates.
+                        By continuing, you agree to Vylyn&apos;s Terms of
+                        Service and Privacy Policy, and to receive periodic
+                        emails with updates.
                     </small>
                 </div>
             </div>
