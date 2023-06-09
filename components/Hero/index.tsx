@@ -79,31 +79,32 @@ const Index = () => {
                                 </div>
                                 <div className="mt-16 flex content-center sm:mt-24 lg:absolute lg:-right-80 lg:col-span-6 lg:mt-0 lg:w-9/12 xl:relative xl:right-0 xl:w-full">
                                     <div className="relative flex w-full flex-col items-center justify-center rounded-md">
-                                        {/* <div className="bg-scale-400 flex h-5 w-full items-center justify-start rounded-t-md px-2">
+                                        <div className="bg-secondary-background flex h-5 w-full items-center justify-start rounded-t-md px-2">
                                             <div className="bg-alt-background mr-2 h-2 w-2 rounded-full" />
                                             <div className="bg-alt-background mr-2 h-2 w-2 rounded-full" />
                                             <div className="bg-alt-background mr-2 h-2 w-2 rounded-full" />
-                                        </div> */}
+                                        </div>
                                         <div
-                                            className="relative w-full h-full"
+                                            className="bg-alt-background relative w-full rounded-b-md shadow-lg"
                                             style={{ padding: "56.25% 0 0 0" }}
                                         >
-                                            {/* <iframe
+                                            <iframe
                                                 title="Demo video showcasing vylyn"
                                                 className="absolute h-full w-full rounded-b-md"
-                                                src="#"
+                                                src="https://www.youtube-nocookie.com/embed/dBOSUER_5T4?playlist=dBOSUER_5T4&autoplay=1&loop=1&controls=0&modestbranding=1&rel=0&disablekb=1&mute=1&muted=1"
                                                 style={{ top: 0, left: 0 }}
                                                 frameBorder="0"
                                                 allow="autoplay; modestbranding; encrypted-media"
-                                            /> */}
-                                            <Image
-                                                src={"/hero.svg?v1.1"}
-                                                width={487}
-                                                height={420}
-                                                priority={true}                                                style={{top: 0, left: 0}}
+                                            />
+                                            {/* <Image
+                                                src={"/screenshots/main.png"}
+                                                width={1920}
+                                                height={1080}
+                                                priority={true}
+                                                style={{ top: 0, left: 0 }}
                                                 className="absolute h-full w-full"
                                                 alt="vylyn | scale 10x better"
-                                            />
+                                            /> */}
                                         </div>
                                     </div>
                                 </div>

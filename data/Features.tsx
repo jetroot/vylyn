@@ -1,28 +1,28 @@
 export default [
     {
-        name: "Save money",
+        name: "Ad campaign Assessment",
         icon: "/icons/features/money.svg",
-        description: "No more wasting money on ads that don’t convert",
+        description: "Real AI assessment for your ad campaign performance",
         url: "#",
     },
     {
-        name: "Better targeting",
+        name: "Generated Queries",
         icon: "/icons/features/targeting.svg",
         description:
-            "Better targeting with a high precision based on factors such as demographics, behavior and interests.",
+            "Discover the questions that matter most for ad data-driven success!",
         url: "#",
     },
     {
-        name: "Scaling",
+        name: "Generated Problem",
         icon: "/icons/features/scaling.svg",
-        description: "Scale your ads to 10x better at the right time.",
+        description:
+            "What's wrong with my ad? Get know all the problems your ad is facing with 1 click.",
         url: "#",
     },
     {
-        name: "Connect your ads",
+        name: "Generated Solutions",
         icon: "/icons/features/easy.svg",
-        description:
-            "Connect your social media ads from platforms like Facebook, Google, Tiktok ...",
+        description: "Let our AI show you how to optimize your ad campaign.",
         url: "#",
     },
 ];
