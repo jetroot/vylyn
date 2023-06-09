@@ -10,7 +10,12 @@ const Pricing = ({ showNav = true }: any) => {
             planDescription: "Perfect for passion projects & simple websites.",
             price: 0,
             priceDescription: "No credit card required",
-            planFeatures: ["1 campaign", "5 requests", "No stored cloud data"],
+            planFeatures: [
+                "1 Campaign",
+                "2 Ad campaigns",
+                "9 Requests",
+                "Sync cloud data",
+            ],
         },
         {
             plan: "starter",
@@ -18,9 +23,11 @@ const Pricing = ({ showNav = true }: any) => {
             price: 0,
             priceDescription: "per month per campaign",
             planFeatures: [
-                "3 campaigns",
-                "100 requests",
-                "No stored cloud data",
+                "5 Campaigns",
+                "10 Ad Campaigns",
+                "100 Requests",
+                "New Features",
+                "Sync cloud data",
             ],
         },
         {
@@ -28,7 +35,13 @@ const Pricing = ({ showNav = true }: any) => {
             planDescription: "Perfect for passion projects & simple websites.",
             price: 0,
             priceDescription: "per month per project",
-            planFeatures: ["10 campaigns", "200 requests", "Sync cloud data"],
+            planFeatures: [
+                "10 Campaigns",
+                "100 Ad campaigns",
+                "300 Requests",
+                "New Features",
+                "Sync cloud data",
+            ],
         },
     ];
     return (

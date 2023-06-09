@@ -61,7 +61,7 @@ const PaypalButtonProvider = ({ plan }: Props) => {
             ) : (
                 <Link
                     href={SIGN_IN_URI}
-                    className="flex items-center justify-center gap-2 text-md"
+                    className="flex items-center justify-center gap-2 text-md p-1.5"
                 >
                     <BsPaypal />
                     Pay with Paypal
