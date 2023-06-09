@@ -50,7 +50,6 @@ const Ads = () => {
     const [loadingAdCampaigns, setLoadingAdCampaigns] = useState(true);
     const [canFetchData, setCanFetchData] = useState(true);
     const [upgradeButtonClicked, setUpgradeButtonClicked] = useState(false);
-
     const [campaignShouldBeAssessed, setCampaignShouldBeAssessed] =
         useState<CampaignShoulBeAssessed>({
             campaignData: {
