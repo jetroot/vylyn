@@ -7,7 +7,7 @@ const Pricing = ({ showNav = true }: any) => {
     const pricesData = [
         {
             plan: "Free",
-            planDescription: "Perfect for passion projects & simple websites.",
+            planDescription: "Perfect for hobby marketers & simple testers.",
             price: 0,
             priceDescription: "No credit card required",
             planFeatures: [
@@ -19,9 +19,9 @@ const Pricing = ({ showNav = true }: any) => {
         },
         {
             plan: "starter",
-            planDescription: "Perfect for passion projects & simple websites.",
+            planDescription: "Perfect for passion marketers & ecom owners.",
             price: 0,
-            priceDescription: "per month per campaign",
+            priceDescription: "per month per plan",
             planFeatures: [
                 "5 Campaigns",
                 "10 Ad Campaigns",
@@ -32,9 +32,9 @@ const Pricing = ({ showNav = true }: any) => {
         },
         {
             plan: "pro",
-            planDescription: "Perfect for passion projects & simple websites.",
+            planDescription: "Perfect for pro marketers & business owners.",
             price: 0,
-            priceDescription: "per month per project",
+            priceDescription: "per month per plan",
             planFeatures: [
                 "10 Campaigns",
                 "100 Ad campaigns",
