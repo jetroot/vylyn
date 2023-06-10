@@ -280,10 +280,10 @@ export default async function createAdCampaign(
     if (method === "GET") {
         // get data
         // const data = req.body;
-        const { campaign_id } = req.headers;
+        const { campaign_id, p } = req.headers;
 
         // Send ad campaigns
-        const adCampaigns = await getAdCampaigns(`${campaign_id}`, 1);
+        const adCampaigns = await getAdCampaigns(`${campaign_id}`, parseInt(p?.toString()!));
 
         if (adCampaigns) {
             res.status(ResponseStatusCodes.OK.status).json({
