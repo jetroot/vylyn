@@ -26,7 +26,8 @@ const Dashboard = () => {
     const router = useRouter();
     let { p }: any = router.query;
 
-    if (!p) {
+    // check if param p is exists
+    if (!(p && /^\d$/.test(p?.toString()))) {
         p = 1;
     }
 

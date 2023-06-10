@@ -14,12 +14,15 @@ import { GiShieldcomb } from "react-icons/gi";
 import AdCampaignForm from "@/components/Form/AdCampaignForm";
 
 import { useRouter } from "next/router";
-import { getCampaignById } from "@/services";
+import { doesCampaignExists } from "@/services";
 import axios from "axios";
 
 import { BiLoader } from "react-icons/bi";
 import { HiOutlineSquare2Stack } from "react-icons/hi2";
 import Pricing from "@/pages/pricing";
+
+import Link from "next/link";
+
 
 interface AdCampaignAssessment {
     data: string | null;
@@ -46,10 +49,12 @@ const Ads = () => {
 
     const [showCreateAdModal, setshowCreateAdModal] = useState(false);
 
-    const [adCampaigns, setAdCampaigns] = useState([]);
+
+    const [adCampaigns, setAdCampaigns] = useState<any>([]);
     const [loadingAdCampaigns, setLoadingAdCampaigns] = useState(true);
     const [canFetchData, setCanFetchData] = useState(true);
     const [upgradeButtonClicked, setUpgradeButtonClicked] = useState(false);
+
     const [campaignShouldBeAssessed, setCampaignShouldBeAssessed] =
         useState<CampaignShoulBeAssessed>({
             campaignData: {
@@ -74,10 +79,18 @@ const Ads = () => {
 
     const router = useRouter();
 
+    const { campaign_id } = router.query;
+    let { p }: any = router.query;
+
+    // check if param p is exists
+    if (!(p && /^\d$/.test(p?.toString()))) {
+        p = 1;
+    }
+
+
     const [generatedData, setGeneratedData] = useState([]);
 
     const getAdCampaigns = async () => {
-        const { campaign_id } = router.query;
 
         try {
             // get ad campaigns data
@@ -85,13 +98,8 @@ const Ads = () => {
                 withCredentials: true,
                 headers: {
                     campaign_id: campaign_id,
+                    p,
                 },
-                // params: {
-                //     campaign_id: "64726d11698f24f556660c2e",
-                // },
-                // data: {
-                //     campaign_id: "64726d11698f24f556660c2e",
-                // },
             });
 
             if (response.data.data.success) {
@@ -108,7 +116,9 @@ const Ads = () => {
         }
 
         canFetchData && getAdCampaigns();
-    }, [isLoading, loadingAdCampaigns, canFetchData]);
+
+    }, [isLoading, loadingAdCampaigns, canFetchData, p]);
+
 
     // generate campaign assessment
     const generateAdCampaignAssessment = async (
@@ -167,11 +177,18 @@ const Ads = () => {
                 setUpgradeButtonClicked(true);
                 setAdCampaignAssessment({
                     ...adCampaignAssessment,
-                    loading: false
-                })
+
+                    loading: false,
+                });
+
             }
         }
     };
+
+    useEffect(() => {
+        getAdCampaigns();
+    }, [p]);
+
 
     useEffect(() => {}, [campaignShouldBeAssessed]);
 
@@ -242,8 +259,9 @@ const Ads = () => {
                 setUpgradeButtonClicked(true);
                 setCampaignShouldBeAssessed({
                     ...campaignShouldBeAssessed,
-                    loading: false
-                })
+                    loading: false,
+                });
+
             }
             // console.log('err', error)
         }
@@ -380,8 +398,12 @@ const Ads = () => {
                                             </tr>
                                         </thead>
                                         <tbody className="">
-                                            {adCampaigns?.map(
-                                                (adCampaign: any, index) => (
+
+                                            {adCampaigns[0].docs?.map(
+                                                (
+                                                    adCampaign: any,
+                                                    index: any
+                                                ) => (
                                                     <tr
                                                         key={adCampaign._id}
                                                         className="tr text-center"
@@ -668,6 +690,36 @@ const Ads = () => {
             ) : (
                 <Pricing showNav={false} />
             )}
+
+            {/* Pagination */}
+            {!loadingAdCampaigns &&
+                !(
+                    data?.user.limitRequests === 0 &&
+                    data?.user.limitCampaigns === 0 &&
+                    data?.user.limitAdCampaigns === 0
+                ) &&
+                adCampaigns[0].totalPages > 1 && (
+                    <div className="text-white flex justify-center max-w-md w-full mx-auto my-12">
+                        {adCampaigns[0].hasPrevPage && (
+                            <Link
+                                href={`/auth/campaign/${campaign_id}?p=${adCampaigns[0].prevPage}`}
+                                className="hover:bg-slate-400 rounded-full py-2 px-10"
+                            >
+                                Previous
+                            </Link>
+                        )}
+
+                        {adCampaigns[0].hasNextPage && (
+                            <Link
+                                href={`/auth/campaign/${campaign_id}?p=${adCampaigns[0].nextPage}`}
+                                className="hover:bg-slate-400 rounded-full py-2 px-10"
+                            >
+                                Next
+                            </Link>
+                        )}
+                    </div>
+                )}
+
         </>
     );
 };
@@ -688,7 +740,8 @@ export const getServerSideProps = async (ctx: any) => {
 
     // is campaign exists in db
     const { campaign_id } = ctx.query;
-    const isCampaignExists = await getCampaignById(campaign_id);
+
+    const isCampaignExists = await doesCampaignExists(campaign_id);
 
     if (!isCampaignExists) {
         return {

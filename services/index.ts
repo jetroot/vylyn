@@ -3,6 +3,7 @@ import { getPlanFeatures } from "@/data/pricing";
 import AdCampaign from "@/schema/AdCampaignSchema";
 import Campaign from "@/schema/CampaignSchema";
 import User from "@/schema/UserSchema";
+import mongoose from "mongoose";
 
 // Create new campaign
 export const createNewCampaign = async (
@@ -83,8 +84,9 @@ export const createNewAdCampaign = async (data: any, campaign_id: string) => {
     }
 };
 
-// Get campaign by id
-export const getCampaignById = async (
+
+// Check if campaign exists
+export const doesCampaignExists = async (
     campaign_id: string
 ): Promise<boolean> => {
     let isCampaignExists = false;
@@ -129,24 +131,32 @@ export const getAdCampaigns = async (
                 as: "campaign", // Alias for the populated user document
             });
 
+            adCampaign.match({
+                campaign_id: new mongoose.Types.ObjectId(campaignId),
+            });
+
+
             const options = {
                 page,
             };
 
             await AdCampaign.aggregatePaginate(adCampaign, options)
                 .then(function (results: any) {
-                    results.docs.map((result: any) => {
-                        if (result.campaign_id.toString() === campaignId) {
-                            data.push(result);
-                        }
-                    });
+                    // results.docs.map((result: any) => {
+                    //     if (result.campaign_id.toString() === campaignId) {
+                    //         data.push(result);
+                    //     }
+                    // });
+
+                    // console.log("results", results);
+                    data.push(results);
                 })
                 .catch(function (err: any) {
-                    console.log("err", err);
+                    // console.log("err", err);
                 });
         });
     } catch (error) {
-        console.log("err", error);
+        // console.log("err", error);
     } finally {
         return data;
     }
