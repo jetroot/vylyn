@@ -129,9 +129,11 @@ export const getAdCampaigns = async (
                 foreignField: "_id", // Primary key field in the related collection (Campaign)
                 as: "campaign", // Alias for the populated user document
             });
+
             adCampaign.match({
                 campaign_id: new mongoose.Types.ObjectId(campaignId),
             });
+
 
             const options = {
                 page,
