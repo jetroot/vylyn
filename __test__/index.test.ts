@@ -80,4 +80,3 @@ describe("Campaign Tests", () => {
         expect(adCampaigns.length).toBeLessThanOrEqual(0);
     });
 });
-

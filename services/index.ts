@@ -84,7 +84,6 @@ export const createNewAdCampaign = async (data: any, campaign_id: string) => {
     }
 };
 
-
 // Check if campaign exists
 export const doesCampaignExists = async (
     campaign_id: string

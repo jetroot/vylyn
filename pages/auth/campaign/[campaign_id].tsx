@@ -23,7 +23,6 @@ import Pricing from "@/pages/pricing";
 
 import Link from "next/link";
 
-
 interface AdCampaignAssessment {
     data: string | null;
     campaignId: string;
@@ -48,7 +47,6 @@ const Ads = () => {
         });
 
     const [showCreateAdModal, setshowCreateAdModal] = useState(false);
-
 
     const [adCampaigns, setAdCampaigns] = useState<any>([]);
     const [loadingAdCampaigns, setLoadingAdCampaigns] = useState(true);
@@ -87,11 +85,9 @@ const Ads = () => {
         p = 1;
     }
 
-
     const [generatedData, setGeneratedData] = useState([]);
 
     const getAdCampaigns = async () => {
-
         try {
             // get ad campaigns data
             const response = await axios.get(`/api/ad_campaign`, {
@@ -118,7 +114,6 @@ const Ads = () => {
         canFetchData && getAdCampaigns();
 
     }, [isLoading, loadingAdCampaigns, canFetchData, p]);
-
 
     // generate campaign assessment
     const generateAdCampaignAssessment = async (
@@ -188,7 +183,6 @@ const Ads = () => {
     useEffect(() => {
         getAdCampaigns();
     }, [p]);
-
 
     useEffect(() => {}, [campaignShouldBeAssessed]);
 
@@ -295,7 +289,9 @@ const Ads = () => {
                                     </p>
 
                                     {!loadingAdCampaigns &&
-                                        !(adCampaigns.length > 0) && (
+
+                                        !(adCampaigns[0]?.docs.length > 0) && (
+
                                             <p className="text-[#5d5d5d] text-[12px] mt-5">
                                                 No campaigns yet!
                                             </p>
@@ -318,7 +314,9 @@ const Ads = () => {
                         </div>
                     </div>
 
-                    {!loadingAdCampaigns && adCampaigns.length > 0 && (
+
+                    {!loadingAdCampaigns && adCampaigns[0]?.docs.length > 0 && (
+
                         <div className="max-w-screen-2xl w-full mx-auto mt-6 px-3">
                             <div className=" max-h-96 h-full overflow-auto">
                                 {!loadingAdCampaigns ? (
@@ -578,7 +576,9 @@ const Ads = () => {
                                                                 className="flex flex-col items-center justify-center bg-white text-gray-700 p-0.5 text-[12px] rounded-2xl px-2"
                                                                 onClick={() =>
                                                                     handleCampaignShouldBeAssessed(
-                                                                        adCampaigns[
+
+                                                                        adCampaigns[0]
+                                                                            .docs[
                                                                             index
                                                                         ],
                                                                         "queries",
@@ -594,7 +594,10 @@ const Ads = () => {
                                                                 className="flex flex-col items-center justify-center bg-white text-gray-700 p-0.5 text-[12px] rounded-2xl px-2"
                                                                 onClick={() =>
                                                                     handleCampaignShouldBeAssessed(
-                                                                        adCampaigns[
+
+                                                                        adCampaigns[0]
+                                                                            .docs[
+
                                                                             index
                                                                         ],
                                                                         "problems",
@@ -610,7 +613,10 @@ const Ads = () => {
                                                                 className="flex flex-col items-center justify-center bg-white text-gray-700 p-0.5 text-[12px] rounded-2xl px-2"
                                                                 onClick={() =>
                                                                     handleCampaignShouldBeAssessed(
-                                                                        adCampaigns[
+
+                                                                        adCampaigns[0]
+                                                                            .docs[
+
                                                                             index
                                                                         ],
                                                                         "solutions",
@@ -642,7 +648,9 @@ const Ads = () => {
                         </div>
                     )}
 
-                    {!loadingAdCampaigns && adCampaigns.length > 0 && (
+
+                    {!loadingAdCampaigns && adCampaigns[0]?.docs.length > 0 && (
+
                         <>
                             <CampaignCard
                                 componentTitle="Generated Queries"
