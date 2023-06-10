@@ -20,7 +20,9 @@ import axios from "axios";
 import { BiLoader } from "react-icons/bi";
 import { HiOutlineSquare2Stack } from "react-icons/hi2";
 import Pricing from "@/pages/pricing";
+
 import Link from "next/link";
+
 
 interface AdCampaignAssessment {
     data: string | null;
@@ -46,6 +48,7 @@ const Ads = () => {
         });
 
     const [showCreateAdModal, setshowCreateAdModal] = useState(false);
+
 
     const [adCampaigns, setAdCampaigns] = useState<any>([]);
     const [loadingAdCampaigns, setLoadingAdCampaigns] = useState(true);
@@ -75,6 +78,7 @@ const Ads = () => {
         });
 
     const router = useRouter();
+
     const { campaign_id } = router.query;
     let { p }: any = router.query;
 
@@ -83,9 +87,11 @@ const Ads = () => {
         p = 1;
     }
 
+
     const [generatedData, setGeneratedData] = useState([]);
 
     const getAdCampaigns = async () => {
+
         try {
             // get ad campaigns data
             const response = await axios.get(`/api/ad_campaign`, {
@@ -110,7 +116,9 @@ const Ads = () => {
         }
 
         canFetchData && getAdCampaigns();
+
     }, [isLoading, loadingAdCampaigns, canFetchData, p]);
+
 
     // generate campaign assessment
     const generateAdCampaignAssessment = async (
@@ -169,8 +177,10 @@ const Ads = () => {
                 setUpgradeButtonClicked(true);
                 setAdCampaignAssessment({
                     ...adCampaignAssessment,
+
                     loading: false,
                 });
+
             }
         }
     };
@@ -178,6 +188,7 @@ const Ads = () => {
     useEffect(() => {
         getAdCampaigns();
     }, [p]);
+
 
     useEffect(() => {}, [campaignShouldBeAssessed]);
 
@@ -250,6 +261,7 @@ const Ads = () => {
                     ...campaignShouldBeAssessed,
                     loading: false,
                 });
+
             }
             // console.log('err', error)
         }
@@ -386,6 +398,7 @@ const Ads = () => {
                                             </tr>
                                         </thead>
                                         <tbody className="">
+
                                             {adCampaigns[0].docs?.map(
                                                 (
                                                     adCampaign: any,
@@ -706,6 +719,7 @@ const Ads = () => {
                         )}
                     </div>
                 )}
+
         </>
     );
 };
@@ -726,6 +740,7 @@ export const getServerSideProps = async (ctx: any) => {
 
     // is campaign exists in db
     const { campaign_id } = ctx.query;
+
     const isCampaignExists = await doesCampaignExists(campaign_id);
 
     if (!isCampaignExists) {

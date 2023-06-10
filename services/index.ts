@@ -84,6 +84,7 @@ export const createNewAdCampaign = async (data: any, campaign_id: string) => {
     }
 };
 
+
 // Check if campaign exists
 export const doesCampaignExists = async (
     campaign_id: string
@@ -129,9 +130,11 @@ export const getAdCampaigns = async (
                 foreignField: "_id", // Primary key field in the related collection (Campaign)
                 as: "campaign", // Alias for the populated user document
             });
+
             adCampaign.match({
                 campaign_id: new mongoose.Types.ObjectId(campaignId),
             });
+
 
             const options = {
                 page,
