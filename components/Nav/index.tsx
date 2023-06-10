@@ -33,11 +33,11 @@ const Index = () => {
                                 <Logo />
                             </Link>
 
-                            <Link href="/about">
+                            {/* <Link href="/about">
                                 <span className="hover:text-[#65d9a5] cursor-pointer items-center text-sm font-medium">
                                     About
                                 </span>
-                            </Link>
+                            </Link> */}
 
                             <Link href={"/pricing"}>
                                 <span className="hover:text-[#65d9a5] cursor-pointer items-center text-sm font-medium">
@@ -142,11 +142,11 @@ const Index = () => {
                                         Pricing
                                     </p>
                                 </Link>
-                                <Link href={"about"}>
+                                {/* <Link href={"about"}>
                                     <p className="hover:bg-alt-background rounded-lg py-2 px-2 text-sm">
                                         About
                                     </p>
-                                </Link>
+                                </Link> */}
                             </div>
                         </div>
                     )}

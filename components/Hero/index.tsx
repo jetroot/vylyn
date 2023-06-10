@@ -39,9 +39,9 @@ const Index = () => {
                                             </div>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <Link href="#">
+                                            <Link href="/auth/dashboard">
                                                 <Button className="text-white bg-brandColor border-[0.1px] outline-0 border-brandPaltte-400 py-1">
-                                                    Analyze your campaign
+                                                    Getting Started
                                                 </Button>
                                             </Link>
                                             {/* <Link href="#">
@@ -91,7 +91,7 @@ const Index = () => {
                                             <iframe
                                                 title="Demo video showcasing vylyn"
                                                 className="absolute h-full w-full rounded-b-md"
-                                                src="https://www.youtube-nocookie.com/embed/dBOSUER_5T4?playlist=dBOSUER_5T4&autoplay=1&loop=1&controls=0&modestbranding=1&rel=0&disablekb=1&mute=1&muted=1"
+                                                src="https://www.youtube.com/embed/12o0Ii-eBpY?autoplay=1&loop=1&mute=1&muted=1"
                                                 style={{ top: 0, left: 0 }}
                                                 frameBorder="0"
                                                 allow="autoplay; modestbranding; encrypted-media"
