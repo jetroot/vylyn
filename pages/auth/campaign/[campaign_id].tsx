@@ -283,7 +283,7 @@ const Ads = () => {
                                     </p>
 
                                     {!loadingAdCampaigns &&
-                                        !(adCampaigns.length > 0) && (
+                                        !(adCampaigns[0]?.docs.length > 0) && (
                                             <p className="text-[#5d5d5d] text-[12px] mt-5">
                                                 No campaigns yet!
                                             </p>
@@ -306,7 +306,7 @@ const Ads = () => {
                         </div>
                     </div>
 
-                    {!loadingAdCampaigns && adCampaigns.length > 0 && (
+                    {!loadingAdCampaigns && adCampaigns[0]?.docs.length > 0 && (
                         <div className="max-w-screen-2xl w-full mx-auto mt-6 px-3">
                             <div className=" max-h-96 h-full overflow-auto">
                                 {!loadingAdCampaigns ? (
@@ -565,7 +565,8 @@ const Ads = () => {
                                                                 className="flex flex-col items-center justify-center bg-white text-gray-700 p-0.5 text-[12px] rounded-2xl px-2"
                                                                 onClick={() =>
                                                                     handleCampaignShouldBeAssessed(
-                                                                        adCampaigns[
+                                                                        adCampaigns[0]
+                                                                            .docs[
                                                                             index
                                                                         ],
                                                                         "queries",
@@ -581,7 +582,8 @@ const Ads = () => {
                                                                 className="flex flex-col items-center justify-center bg-white text-gray-700 p-0.5 text-[12px] rounded-2xl px-2"
                                                                 onClick={() =>
                                                                     handleCampaignShouldBeAssessed(
-                                                                        adCampaigns[
+                                                                        adCampaigns[0]
+                                                                            .docs[
                                                                             index
                                                                         ],
                                                                         "problems",
@@ -597,7 +599,8 @@ const Ads = () => {
                                                                 className="flex flex-col items-center justify-center bg-white text-gray-700 p-0.5 text-[12px] rounded-2xl px-2"
                                                                 onClick={() =>
                                                                     handleCampaignShouldBeAssessed(
-                                                                        adCampaigns[
+                                                                        adCampaigns[0]
+                                                                            .docs[
                                                                             index
                                                                         ],
                                                                         "solutions",
@@ -629,7 +632,7 @@ const Ads = () => {
                         </div>
                     )}
 
-                    {!loadingAdCampaigns && adCampaigns.length > 0 && (
+                    {!loadingAdCampaigns && adCampaigns[0]?.docs.length > 0 && (
                         <>
                             <CampaignCard
                                 componentTitle="Generated Queries"
