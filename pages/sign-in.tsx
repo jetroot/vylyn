@@ -53,11 +53,11 @@ const SignIn = () => {
                                     text={"Sign in with Google"}
                                     isSubmittingText="Signing..."
                                 />
-                                <SignUpAndSignIn
+                                {/* <SignUpAndSignIn
                                     provider="facebook"
                                     text={"Sign in with Facebook"}
                                     isSubmittingText="Signing..."
-                                />
+                                /> */}
                             </div>
                         </div>
 
