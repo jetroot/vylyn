@@ -75,6 +75,7 @@ const Ads = () => {
         });
 
     const router = useRouter();
+
     const { campaign_id } = router.query;
     let { p }: any = router.query;
 
@@ -110,6 +111,7 @@ const Ads = () => {
         }
 
         canFetchData && getAdCampaigns();
+
     }, [isLoading, loadingAdCampaigns, canFetchData, p]);
 
     // generate campaign assessment
@@ -169,6 +171,7 @@ const Ads = () => {
                 setUpgradeButtonClicked(true);
                 setAdCampaignAssessment({
                     ...adCampaignAssessment,
+
                     loading: false,
                 });
             }
@@ -250,6 +253,7 @@ const Ads = () => {
                     ...campaignShouldBeAssessed,
                     loading: false,
                 });
+
             }
             // console.log('err', error)
         }
@@ -283,7 +287,9 @@ const Ads = () => {
                                     </p>
 
                                     {!loadingAdCampaigns &&
+
                                         !(adCampaigns[0]?.docs.length > 0) && (
+
                                             <p className="text-[#5d5d5d] text-[12px] mt-5">
                                                 No campaigns yet!
                                             </p>
@@ -307,6 +313,7 @@ const Ads = () => {
                     </div>
 
                     {!loadingAdCampaigns && adCampaigns[0]?.docs.length > 0 && (
+
                         <div className="max-w-screen-2xl w-full mx-auto mt-6 px-3">
                             <div className=" max-h-96 h-full overflow-auto">
                                 {!loadingAdCampaigns ? (
@@ -386,6 +393,7 @@ const Ads = () => {
                                             </tr>
                                         </thead>
                                         <tbody className="">
+
                                             {adCampaigns[0].docs?.map(
                                                 (
                                                     adCampaign: any,
@@ -565,6 +573,7 @@ const Ads = () => {
                                                                 className="flex flex-col items-center justify-center bg-white text-gray-700 p-0.5 text-[12px] rounded-2xl px-2"
                                                                 onClick={() =>
                                                                     handleCampaignShouldBeAssessed(
+
                                                                         adCampaigns[0]
                                                                             .docs[
                                                                             index
@@ -582,8 +591,10 @@ const Ads = () => {
                                                                 className="flex flex-col items-center justify-center bg-white text-gray-700 p-0.5 text-[12px] rounded-2xl px-2"
                                                                 onClick={() =>
                                                                     handleCampaignShouldBeAssessed(
+
                                                                         adCampaigns[0]
                                                                             .docs[
+
                                                                             index
                                                                         ],
                                                                         "problems",
@@ -599,8 +610,10 @@ const Ads = () => {
                                                                 className="flex flex-col items-center justify-center bg-white text-gray-700 p-0.5 text-[12px] rounded-2xl px-2"
                                                                 onClick={() =>
                                                                     handleCampaignShouldBeAssessed(
+
                                                                         adCampaigns[0]
                                                                             .docs[
+
                                                                             index
                                                                         ],
                                                                         "solutions",
@@ -632,7 +645,9 @@ const Ads = () => {
                         </div>
                     )}
 
+
                     {!loadingAdCampaigns && adCampaigns[0]?.docs.length > 0 && (
+
                         <>
                             <CampaignCard
                                 componentTitle="Generated Queries"
@@ -709,6 +724,7 @@ const Ads = () => {
                         )}
                     </div>
                 )}
+
         </>
     );
 };
@@ -729,6 +745,7 @@ export const getServerSideProps = async (ctx: any) => {
 
     // is campaign exists in db
     const { campaign_id } = ctx.query;
+
     const isCampaignExists = await doesCampaignExists(campaign_id);
 
     if (!isCampaignExists) {
