@@ -134,7 +134,6 @@ export const getAdCampaigns = async (
                 campaign_id: new mongoose.Types.ObjectId(campaignId),
             });
 
-
             const options = {
                 page,
             };

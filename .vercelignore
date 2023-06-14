@@ -1,0 +1,16 @@
+# Ignore test files
+/__test__
+jest.config.mjs
+jest.setup.js
+
+# Other files & folders
+/.github
+/.idea
+/.next
+/.swc
+/.vercel
+/node_modules
+README.md
+.env
+.env.example
+.gitignore

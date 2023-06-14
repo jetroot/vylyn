@@ -2,13 +2,16 @@ import SectionContainer from "@/components/Layouts/SectionContainer";
 
 import PricingCard from "./PricingCard";
 import Nav from "../../components/Nav";
+import { PricingData } from "@/data/pricing";
 
 const Pricing = ({ showNav = true }: any) => {
     const pricesData = [
         {
             plan: "Free",
             planDescription: "Perfect for hobby marketers & simple testers.",
-            price: 0,
+
+            price: PricingData.free.price,
+
             priceDescription: "No credit card required",
             planFeatures: [
                 "1 Campaign",
@@ -20,7 +23,9 @@ const Pricing = ({ showNav = true }: any) => {
         {
             plan: "starter",
             planDescription: "Perfect for passion marketers & ecom owners.",
-            price: 0,
+
+            price: PricingData.starter.price,
+
             priceDescription: "per month per plan",
             planFeatures: [
                 "5 Campaigns",
@@ -33,7 +38,9 @@ const Pricing = ({ showNav = true }: any) => {
         {
             plan: "pro",
             planDescription: "Perfect for pro marketers & business owners.",
-            price: 0,
+
+            price: PricingData.pro.price,
+
             priceDescription: "per month per plan",
             planFeatures: [
                 "10 Campaigns",

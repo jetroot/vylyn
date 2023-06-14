@@ -20,7 +20,6 @@ import axios from "axios";
 import { BiLoader } from "react-icons/bi";
 import { HiOutlineSquare2Stack } from "react-icons/hi2";
 import Pricing from "@/pages/pricing";
-
 import Link from "next/link";
 
 interface AdCampaignAssessment {
@@ -175,7 +174,6 @@ const Ads = () => {
 
                     loading: false,
                 });
-
             }
         }
     };
@@ -313,7 +311,6 @@ const Ads = () => {
                             </div>
                         </div>
                     </div>
-
 
                     {!loadingAdCampaigns && adCampaigns[0]?.docs.length > 0 && (
 

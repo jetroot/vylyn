@@ -79,7 +79,6 @@ const PricingCard = (props: Props) => {
                     </div>
                 )}
 
-
                 {props.plan && props.plan.toLowerCase() === "free" && !session.data?.user && (
 
                     <Link
