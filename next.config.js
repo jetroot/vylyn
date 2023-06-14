@@ -17,8 +17,8 @@ const nextConfig = {
     // async redirects() {
     //   return [
     //     {
-    //       source: '/',
-    //       destination: '/beta',
+    //       source: '/try',
+    //       destination: 'https://beta.vylyn.com',
     //       permanent: false
     //     }
     //   ]
