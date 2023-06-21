@@ -3,6 +3,7 @@ import Layout from "../components/Layouts";
 import Hero from "../components/Hero";
 import Features from "@/components/Features";
 import FeatureDetails from "@/components/Features/FeatureDetails";
+import HowItWorks from "@/components/HowItWorks";
 
 export default function Home() {
     return (
@@ -10,6 +11,9 @@ export default function Home() {
             <Container>
                 <Hero />
                 <Features />
+
+                <HowItWorks />
+
                 <FeatureDetails
                     sectionTitle={"AI Generated Queries"}
                     cardStyle="border border-[#8181d1]"

@@ -91,9 +91,7 @@ const Index = () => {
                                             <iframe
                                                 title="Demo video showcasing vylyn"
                                                 className="absolute h-full w-full rounded-b-md"
-
                                                 src="https://www.youtube.com/embed/12o0Ii-eBpY?autoplay=1&loop=1&mute=1&muted=1"
-
                                                 style={{ top: 0, left: 0 }}
                                                 frameBorder="0"
                                                 allow="autoplay; modestbranding; encrypted-media"

@@ -9,9 +9,7 @@ const Pricing = ({ showNav = true }: any) => {
         {
             plan: "Free",
             planDescription: "Perfect for hobby marketers & simple testers.",
-
             price: PricingData.free.price,
-
             priceDescription: "No credit card required",
             planFeatures: [
                 "1 Campaign",
@@ -23,9 +21,7 @@ const Pricing = ({ showNav = true }: any) => {
         {
             plan: "starter",
             planDescription: "Perfect for passion marketers & ecom owners.",
-
             price: PricingData.starter.price,
-
             priceDescription: "per month per plan",
             planFeatures: [
                 "5 Campaigns",
@@ -38,9 +34,7 @@ const Pricing = ({ showNav = true }: any) => {
         {
             plan: "pro",
             planDescription: "Perfect for pro marketers & business owners.",
-
             price: PricingData.pro.price,
-
             priceDescription: "per month per plan",
             planFeatures: [
                 "10 Campaigns",
