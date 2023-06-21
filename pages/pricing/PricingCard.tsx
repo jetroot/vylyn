@@ -67,10 +67,12 @@ const PricingCard = (props: Props) => {
                                 </span>
                             </div>
                         ))}
+
                 </div>
             </div>
 
             <div className="w-full mx-auto flex justify-center absolute bottom-5">
+
                 {props.plan && !(props.plan.toLowerCase() === "free") && (
                     <div className="bg-brandColor border-brandPaltte-500 w-10/12 text-center rounded-md text-white text-sm border-[1.5px]">
                         <PaypalButtonProvider plan={props.plan} />
@@ -78,6 +80,7 @@ const PricingCard = (props: Props) => {
                 )}
 
                 {props.plan && props.plan.toLowerCase() === "free" && !session.data?.user && (
+
                     <Link
                         href={SIGN_UP_URI}
                         className="bg-alt-background w-10/12 p-1.5 rounded-md text-center text-white text-sm border border-slate-600"
@@ -85,6 +88,7 @@ const PricingCard = (props: Props) => {
                         Getting Started
                     </Link>
                 )}
+
             </div>
         </div>
     );

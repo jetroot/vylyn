@@ -11,7 +11,9 @@ export default function Home() {
             <Container>
                 <Hero />
                 <Features />
+
                 <HowItWorks />
+
                 <FeatureDetails
                     sectionTitle={"AI Generated Queries"}
                     cardStyle="border border-[#8181d1]"
